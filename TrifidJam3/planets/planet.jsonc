@@ -1,0 +1,15 @@
+{
+    "$schema": "https://raw.githubusercontent.com/xen-42/outer-wilds-new-horizons/main/NewHorizons/Schemas/body_schema.json",
+	"name" : "unknown",
+	"starSystem" : "Jam3",
+    "Base": {
+        "groundSize": 75,
+        "surfaceSize": 75,
+        "surfaceGravity": 5
+    },
+    "Orbit": {
+        "primaryBody": "Jam 3 Sun",
+        "semiMajorAxis": 10000,
+        "trueAnomaly": 215
+    }
+}
