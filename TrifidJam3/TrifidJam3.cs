@@ -1,6 +1,8 @@
 ﻿using OWML.Common;
 using OWML.ModHelper;
+using NewHorizons;
 using UnityEngine;
+using NewHorizons.Components.Props;
 
 namespace TrifidJam3
 {
