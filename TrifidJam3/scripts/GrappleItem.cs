@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TrifidJam3
 {
-    public class Grapple : MonoBehaviour
+    public class GrappleItem : MonoBehaviour
     {
         private static NHItem _nhItem;
 
