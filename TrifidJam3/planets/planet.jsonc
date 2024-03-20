@@ -17,15 +17,6 @@
             {
                 "assetBundle": "planets/trifid_jam3",
                 "path": "Assets/Jam3/Grapple.prefab",
-                "item": {
-                    "name": "Threader",
-                    "colliderRadius": 0.5,
-                    "itemType": "Grapple",
-                    "pickupCondition": "GrappleActive",
-                    "clearPickupConditionOnDrop": true,
-                    "pickupAudio": "VisionTorch_Take",
-                    "dropAudio": "VisionTorch_Give"
-                },
                 "position": {"x": 0, "y": 75.5, "z": 0},
                 "alignRadial": true,
                 "keepLoaded": true
