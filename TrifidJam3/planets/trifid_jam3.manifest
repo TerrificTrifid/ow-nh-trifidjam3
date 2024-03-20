@@ -1,0 +1,37 @@
+ManifestFileVersion: 0
+CRC: 2822471424
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 053fb21c9dfbaf54a3fb2392b181c4ec
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9363034a0f94c98910afaf8d7585542b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: -1414457080, guid: 69420196459414f46bd9658a50ee818e, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Jam3/Grapple.prefab
+Dependencies: []
