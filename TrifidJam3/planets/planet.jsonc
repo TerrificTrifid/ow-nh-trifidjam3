@@ -1,11 +1,12 @@
 {
     "$schema": "https://raw.githubusercontent.com/xen-42/outer-wilds-new-horizons/main/NewHorizons/Schemas/body_schema.json",
-    "name": "unknown",
+    "name": "Glacial Hike",
     "starSystem": "Jam3",
     "Base": {
         "groundSize": 75,
         "surfaceSize": 75,
-        "surfaceGravity": 5
+        "surfaceGravity": 5,
+        "hasMapMarker": true
     },
     "Orbit": {
         "primaryBody": "Jam 3 Sun",

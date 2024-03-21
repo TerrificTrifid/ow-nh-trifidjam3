@@ -25,7 +25,6 @@ public class GrappleController : OWItem
 	private OWAudioSource _oneShotAudioSource;
 
 	private bool _grappleActive;
-	private float _grappleValue;
 	private int _reelDirection;
 
 	public override void Awake()
@@ -121,7 +120,11 @@ public class GrappleController : OWItem
 	{
 		if (OWInput.IsPressed(InputLibrary.toolActionPrimary, InputMode.Character))
 		{
-			if (!_grappleActive)
+			if (TrifidJam3.Instance.Planet.transform.position.magnitude > 1000f)
+            {
+				NotificationManager.SharedInstance.PostNotification(new NotificationData(NotificationTarget.Player, TranslationHandler.GetTranslation("OUT OF RANGE", TranslationHandler.TextType.UI), 2f), false);
+			}
+			else if (!_grappleActive)
 			{
 				NHLogger.Log("activate");
 				ActivateGrapple();
@@ -158,12 +161,16 @@ public class GrappleController : OWItem
 	{
 		_grappleActive = true;
 		_reelDirection = 0;
+		Light.intensity = 0.8f;
+		Light.range = 16f;
 	}
 
 	public void ReleaseGrapple()
 	{
 		_grappleActive = false;
 		_reelDirection = 0;
-	}
+        Light.intensity = 0.4f;
+        Light.range = 8f;
+    }
 
 }
