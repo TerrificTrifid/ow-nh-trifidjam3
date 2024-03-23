@@ -1,0 +1,14 @@
+{
+	"$schema": "https://raw.githubusercontent.com/xen-42/outer-wilds-new-horizons/main/NewHorizons/Schemas/translation_schema.json",
+	"UIDictionary": {
+
+		"Echo Hike": "Echo Hike",
+
+		"Grapple_Name": "Threader",
+		"Grapple_Activate": "Activate",
+		"Grapple_ReelIn": "Reel In",
+		"Grapple_ReelOut": "Reel Out",
+		"Grapple_OutOfRange": "ERROR: OUT OF RANGE"
+
+	}
+}

@@ -3,6 +3,7 @@ using OWML.ModHelper;
 using NewHorizons;
 using UnityEngine;
 using NewHorizons.Components.Props;
+using NewHorizons.Handlers;
 
 namespace TrifidJam3
 {
@@ -34,9 +35,9 @@ namespace TrifidJam3
             {
                 if (system != "Jam3") return;
 
-                Planet = NewHorizons.GetPlanet("Echo Hike");
+                Planet = NewHorizons.GetPlanet(TranslationHandler.GetTranslation("Echo Hike", TranslationHandler.TextType.UI));
 
-                ModHelper.Console.WriteLine($"{nameof(TrifidJam3)} is ready", MessageType.Success);
+                
 
             });
         }

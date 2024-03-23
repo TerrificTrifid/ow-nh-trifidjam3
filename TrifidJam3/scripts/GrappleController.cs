@@ -36,9 +36,9 @@ public class GrappleController : OWItem
 
 	private void Start()
 	{
-		_activatePrompt = new ScreenPrompt(InputLibrary.toolActionPrimary, TranslationHandler.GetTranslation("Activate", TranslationHandler.TextType.UI) + "   <CMD>");
-		_reelInPrompt = new ScreenPrompt(InputLibrary.thrustUp, TranslationHandler.GetTranslation("Reel In", TranslationHandler.TextType.UI) + "   <CMD>");
-		_reelOutPrompt = new ScreenPrompt(InputLibrary.thrustDown, TranslationHandler.GetTranslation("Reel Out", TranslationHandler.TextType.UI) + "   <CMD>");
+		_activatePrompt = new ScreenPrompt(InputLibrary.toolActionPrimary, TranslationHandler.GetTranslation("Grapple_Activate", TranslationHandler.TextType.UI) + "   <CMD>");
+		_reelInPrompt = new ScreenPrompt(InputLibrary.thrustUp, TranslationHandler.GetTranslation("Graple_ReelIn", TranslationHandler.TextType.UI) + "   <CMD>");
+		_reelOutPrompt = new ScreenPrompt(InputLibrary.thrustDown, TranslationHandler.GetTranslation("Grapple_ReelOut", TranslationHandler.TextType.UI) + "   <CMD>");
 
 		var playerAudioController = Locator.GetPlayerAudioController();
 
@@ -76,7 +76,7 @@ public class GrappleController : OWItem
 
 	public override string GetDisplayName()
 	{
-		return TranslationHandler.GetTranslation("Threader", TranslationHandler.TextType.UI);
+		return TranslationHandler.GetTranslation("Grapple_Name", TranslationHandler.TextType.UI);
 	}
 
 	public override void PickUpItem(Transform holdTranform)
@@ -123,28 +123,28 @@ public class GrappleController : OWItem
 		{
 			if (TrifidJam3.Instance.Planet.transform.position.magnitude > 1000f)
             {
-				NotificationManager.SharedInstance.PostNotification(new NotificationData(NotificationTarget.Player, TranslationHandler.GetTranslation("OUT OF RANGE", TranslationHandler.TextType.UI), 2f), false);
+				NotificationManager.SharedInstance.PostNotification(new NotificationData(NotificationTarget.Player, TranslationHandler.GetTranslation("Grapple_OutOfRange", TranslationHandler.TextType.UI), 2f), false);
 			}
 			else if (!_grappleActive)
 			{
-				NHLogger.Log("activate");
+				//NHLogger.Log("activate");
 				ActivateGrapple();
 			}
 		}
 		else if (_grappleActive)
 		{
-			NHLogger.Log("release");
+			//NHLogger.Log("release");
 			ReleaseGrapple();
 		}
 
 		if (OWInput.IsPressed(InputLibrary.thrustUp, InputMode.Character))
 		{
-			NHLogger.Log("reel in");
+			//NHLogger.Log("reel in");
 			_reelDirection = -1;
 		}
 		else if (OWInput.IsPressed(InputLibrary.thrustDown, InputMode.Character))
 		{
-			NHLogger.Log("reel out");
+			//NHLogger.Log("reel out");
 			_reelDirection = 1;
 		}
 		else _reelDirection = 0;
