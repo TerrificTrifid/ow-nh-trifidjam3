@@ -3,7 +3,7 @@
     "name": "Echo Hike", // Frozen Solace
     "starSystem": "Jam3",
     "Base": {
-        "surfaceSize": 250,
+        "surfaceSize": 260,
         "surfaceGravity": 12,
         "hasMapMarker": true
     },
@@ -12,21 +12,27 @@
         "semiMajorAxis": 15000,
         "trueAnomaly": 30,
         "siderealPeriod": 5,
-        "axialTilt": 60
+        "axialTilt": 40
     },
     "Atmosphere": {
         "size": 300,
         "useAtmosphereShader": true,
         "atmosphereTint": {
-            "r": 0,
-            "g": 0,
+            "r": 128,
+            "g": 192,
             "b": 255,
             "a": 255
         },
-        "atmosphereSunIntensity": 0.2,
+        "atmosphereSunIntensity": 0.3,
         "hasOxygen": true,
-        //"fogSize": 280,
-        //"fogDensity": 0.5,
+        "fogSize": 300,
+        "fogDensity": 0.5,
+        "fogTint": {
+            "r": 128,
+            "g": 192,
+            "b": 255,
+            "a": 255
+        }
     },
     "Rings": [
         {
@@ -54,6 +60,30 @@
                 "parentPath": "Sector/PlanetInterior/EntranceRoot2/Interior/GrappleSpawn",
                 "isRelativeToParent": true,
                 "keepLoaded": true
+            }
+        ]
+    },
+    "Volumes": {
+        "audioVolumes": [
+            {
+                "audio": "BH_Ambience_Surface",
+                "track": "environment",
+                "layer": 1,
+                "priority": 0,
+                "radius": 350
+            },
+            {
+                "audio": "HGT_Ambience_Cave_Big",
+                "track": "environment",
+                "volume": 0.5,
+                "layer": 1,
+                "priority": 1,
+                "radius": 214
+            }
+        ],
+        "reverbVolumes": [
+            {
+                "radius": 214
             }
         ]
     },
