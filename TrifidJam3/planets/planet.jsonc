@@ -1,27 +1,63 @@
 {
     "$schema": "https://raw.githubusercontent.com/xen-42/outer-wilds-new-horizons/main/NewHorizons/Schemas/body_schema.json",
-    "name": "Glacial Hike",
+    "name": "Echo Hike", // Frozen Solace
     "starSystem": "Jam3",
     "Base": {
-        "groundSize": 75,
-        "surfaceSize": 75,
-        "surfaceGravity": 5,
+        "surfaceSize": 250,
+        "surfaceGravity": 12,
         "hasMapMarker": true
     },
     "Orbit": {
         "primaryBody": "Jam 3 Sun",
-        "semiMajorAxis": 10000,
-        "trueAnomaly": 215
+        "semiMajorAxis": 15000,
+        "trueAnomaly": 30,
+        "siderealPeriod": 5,
+        "axialTilt": 60
     },
+    "Atmosphere": {
+        "size": 300,
+        "useAtmosphereShader": true,
+        "atmosphereTint": {
+            "r": 0,
+            "g": 0,
+            "b": 255,
+            "a": 255
+        },
+        "atmosphereSunIntensity": 0.2,
+        "hasOxygen": true,
+        //"fogSize": 280,
+        //"fogDensity": 0.5,
+    },
+    "Rings": [
+        {
+            "outerRadius": 650,
+            "innerRadius": 450,
+            "texture": "planets/ring.png",
+            "fluidType": "sand"
+        }
+    ],
     "Props": {
         "details": [
             {
                 "assetBundle": "planets/trifid_jam3",
+                "path": "Assets/Jam3/PlanetExterior.prefab",
+                "keepLoaded": true
+            },
+            {
+                "assetBundle": "planets/trifid_jam3",
+                "path": "Assets/Jam3/PlanetInterior.prefab",
+                "keepLoaded": false
+            },
+            {
+                "assetBundle": "planets/trifid_jam3",
                 "path": "Assets/Jam3/Grapple.prefab",
-                "position": {"x": 0, "y": 75.5, "z": 0},
-                "alignRadial": true,
+                "parentPath": "Sector/PlanetInterior/EntranceRoot2/Interior/GrappleSpawn",
+                "isRelativeToParent": true,
                 "keepLoaded": true
             }
         ]
+    },
+    "extras": {
+        "farFromSun": true
     }
 }

@@ -34,7 +34,7 @@ namespace TrifidJam3
             {
                 if (system != "Jam3") return;
 
-                Planet = NewHorizons.GetPlanet("Glacial Hike");
+                Planet = NewHorizons.GetPlanet("Echo Hike");
 
                 ModHelper.Console.WriteLine($"{nameof(TrifidJam3)} is ready", MessageType.Success);
 

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1169202953
+CRC: 912779070
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3e0c8b4c505419c6e3916cdce0885ec4
+    Hash: 36728d654a857e90b5b6de4f4089caa4
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 1adf986af89897bb8a97c58e30243208
+    Hash: aac15cf63b500bb0f1df30377c5126a0
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -25,6 +25,12 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 89
+  Script: {instanceID: 0}
 - Class: 108
   Script: {instanceID: 0}
 - Class: 114
@@ -35,5 +41,8 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Jam3/PlanetInterior.prefab
+- Assets/Jam3/Crate1.prefab
 - Assets/Jam3/Grapple.prefab
+- Assets/Jam3/PlanetExterior.prefab
 Dependencies: []

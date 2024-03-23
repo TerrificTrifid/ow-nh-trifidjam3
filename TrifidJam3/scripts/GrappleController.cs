@@ -67,10 +67,11 @@ public class GrappleController : OWItem
 
 	public override void OnDestroy()
 	{
+		base.OnDestroy();
 		Destroy(_ambienceAudioSource.gameObject);
         Destroy(_reelAudioSource.gameObject);
         Destroy(_oneShotAudioSource.gameObject);
-		base.OnDestroy();
+		
 	}
 
 	public override string GetDisplayName()
