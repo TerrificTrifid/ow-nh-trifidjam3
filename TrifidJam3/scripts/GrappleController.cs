@@ -12,6 +12,9 @@ public class GrappleController : OWItem
 
 	public static float MaxLength = 50f;
 	public static float MinLength = 1f;
+	public static float ReelSpeed = 8f;
+	public static float SpringForce = 0.5f;
+	public static float SpringDamper = 0.5f;
 
     private ScreenPrompt _activatePrompt;
 	private ScreenPrompt _reelInPrompt;
@@ -37,6 +40,7 @@ public class GrappleController : OWItem
 	private bool _grappleConnected;
 	private int _reelDirection;
 	private float _targetLength;
+	private SpringJoint _joint;
 
 	public override void Awake()
 	{
@@ -51,7 +55,7 @@ public class GrappleController : OWItem
 		_reelInPrompt = new ScreenPrompt(InputLibrary.thrustUp, TranslationHandler.GetTranslation("Grapple_ReelIn", TranslationHandler.TextType.UI) + "   <CMD>");
 		_reelOutPrompt = new ScreenPrompt(InputLibrary.thrustDown, TranslationHandler.GetTranslation("Grapple_ReelOut", TranslationHandler.TextType.UI) + "   <CMD>");
 
-		Endpoint.gameObject.SetActive(false);
+		//Endpoint.gameObject.SetActive(false);
 
 		var playerAudioController = Locator.GetPlayerAudioController();
 
@@ -143,22 +147,14 @@ public class GrappleController : OWItem
 				//NHLogger.Log("activate");
 				ActivateGrapple();
 			}
-			if (!_grappleConnected)
-			{
-				ConnectGrapple();
-			}
 		}
 		else
 		{
 			if (_grappleActive)
 			{
+				//NHLogger.Log("release");
 				DeactivateGrapple();
 			}
-            if (_grappleConnected)
-            {
-                //NHLogger.Log("release");
-                ReleaseGrapple();
-            }
         }
 
 		if (_grappleConnected && OWInput.IsPressed(InputLibrary.thrustUp, InputMode.Character))
@@ -178,11 +174,29 @@ public class GrappleController : OWItem
 	{
 		if (_grappleActive)
 		{
-			
+			if (!_grappleConnected)
+			{
+				ConnectGrapple();
+			}
+			else
+			{
+                var player = Locator.GetPlayerBody();
+				//_joint.axis = Vector3.Cross(player.GetRelativeAcceleration(Endpoint.GetAttachedOWRigidbody()), player.transform.InverseTransformPoint(Endpoint.transform.position)).normalized;
+
+                _targetLength += _reelDirection * ReelSpeed * Time.fixedDeltaTime;
+				_targetLength = Mathf.Clamp(_targetLength, MinLength - 1f, MaxLength - 1f);
+				_joint.maxDistance = _targetLength;
+				_joint.minDistance = _targetLength;
+
+                
+            }
 		}
 		else
 		{
-
+			if (_grappleConnected)
+			{
+				ReleaseGrapple();
+			}
 		}
 	}
 
@@ -206,14 +220,43 @@ public class GrappleController : OWItem
 	{
         if (Physics.Raycast(Locator.GetActiveCamera().transform.position, Locator.GetActiveCamera().transform.forward, out var hitInfo, MaxLength, OWLayerMask.groundMask))
         {
-            Endpoint.transform.position = hitInfo.point;
+			if (hitInfo.distance < MinLength || hitInfo.rigidbody.GetAttachedOWRigidbody() == null) return;
+			NHLogger.Log(hitInfo.rigidbody.gameObject.name);
+			//NHLogger.Log(hitInfo.distance);
+			NHLogger.Log(hitInfo.point);
+
+			Endpoint.transform.position = hitInfo.point;
             Endpoint.transform.LookAt(hitInfo.point + hitInfo.normal);
             Endpoint.transform.parent = hitInfo.collider.transform;
             Endpoint.gameObject.SetActive(true);
 			Endpoint.UpdateLine();
 
+			var player = Locator.GetPlayerBody();
+			var playerPosition = player.transform.position;
+
+			// need the initial spring length to be 1 lol
+			player.MoveToPosition(playerPosition + (Locator.GetActiveCamera().transform.forward * (hitInfo.distance - 1f)));
+			NHLogger.Log(hitInfo.point - Locator.GetActiveCamera().transform.forward);
+			NHLogger.Log(playerPosition + (Locator.GetActiveCamera().transform.forward * (hitInfo.distance - 1f)));
+
+			_joint = hitInfo.rigidbody.gameObject.AddComponent<SpringJoint>();
+			_joint.connectedBody = player.GetRigidbody();
+
+			player.MoveToPosition(playerPosition);
+
+			_joint.anchor = hitInfo.rigidbody.transform.InverseTransformPoint(hitInfo.point);
+			_joint.autoConfigureConnectedAnchor = false;
+			_joint.connectedAnchor = Vector3.zero;
+			//_joint.axis = Vector3.Cross(player.GetRelativeAcceleration(hitInfo.rigidbody.GetAttachedOWRigidbody()), player.transform.InverseTransformPoint(hitInfo.point)).normalized;
+			_joint.enableCollision = true;
+
+			_targetLength = hitInfo.distance;
+            _joint.maxDistance = _targetLength;
+            _joint.minDistance = _targetLength;
+			_joint.spring = SpringForce;
+			_joint.damper = SpringDamper;
+
             _reelDirection = 0;
-            _targetLength = hitInfo.distance;
 			_grappleConnected = true;
         }
     }
@@ -223,6 +266,8 @@ public class GrappleController : OWItem
         Endpoint.transform.parent = transform;
         Endpoint.transform.localPosition = Vector3.zero;
         Endpoint.gameObject.SetActive(false);
+
+		DestroyImmediate(_joint);
 
 		_grappleConnected = false;
     }

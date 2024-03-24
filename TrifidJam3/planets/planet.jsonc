@@ -7,6 +7,26 @@
         "surfaceGravity": 12,
         "hasMapMarker": true
     },
+    "Spawn": {
+        "playerSpawn": {
+            "alignRadial": true,
+            "isDefault": true,
+            "position": {
+                "x": 0,
+                "y": 270,
+                "z": 0
+            },
+            "startWithSuit": true
+        },
+        "shipSpawn": {
+            "alignRadial": true,
+            "position": {
+                "x": 0,
+                "y": 270,
+                "z": 0
+            }
+        }
+    },
     "Orbit": {
         "primaryBody": "Jam 3 Sun",
         "semiMajorAxis": 15000,
@@ -84,6 +104,17 @@
         "reverbVolumes": [
             {
                 "radius": 214
+            }
+        ],
+        "fluidVolumes": [
+            {
+                "type": "air",
+                "density": 0,
+                "layer": 5,
+                "priority": 1,
+                "radius": 214,
+                "alignmentFluid": true,
+                "allowShipAutoroll": true
             }
         ]
     },

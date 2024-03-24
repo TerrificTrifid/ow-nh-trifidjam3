@@ -19,6 +19,7 @@ namespace TrifidJam3
         {
             Grapple = GetComponentInParent<GrappleController>() ?? GrappleController.Instance;
             Line.positionCount = Segments;
+            gameObject.SetActive(false);
         }
 
         private void Update()
