@@ -4,6 +4,8 @@ using NewHorizons;
 using UnityEngine;
 using NewHorizons.Components.Props;
 using NewHorizons.Handlers;
+using HarmonyLib;
+using System.Reflection;
 
 namespace TrifidJam3
 {
@@ -22,6 +24,7 @@ namespace TrifidJam3
             // Use Start() instead.
 
             Instance = this;
+            Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
         }
 
         private void Start()
