@@ -10,11 +10,20 @@ public class GrappleController : OWItem
 {
 	public static GrappleController Instance { get; private set; }
 
-	private ScreenPrompt _activatePrompt;
+	public static float MaxLength = 50f;
+	public static float MinLength = 1f;
+
+    private ScreenPrompt _activatePrompt;
 	private ScreenPrompt _reelInPrompt;
 	private ScreenPrompt _reelOutPrompt;
 
 	public Light Light;
+	public float LightActiveIntensity = 0.8f;
+	public float LightActiveRange = 16;
+	public float LightInactiveIntensity = 0.4f;
+	public float LightInactiveRange = 8f;
+	public Transform AttachPoint;
+	public GrappleEndpoint Endpoint;
 
 	public AudioClip AmbienceAudio;
 	private OWAudioSource _ambienceAudioSource;
@@ -25,7 +34,9 @@ public class GrappleController : OWItem
 	private OWAudioSource _oneShotAudioSource;
 
 	private bool _grappleActive;
+	private bool _grappleConnected;
 	private int _reelDirection;
+	private float _targetLength;
 
 	public override void Awake()
 	{
@@ -39,6 +50,8 @@ public class GrappleController : OWItem
 		_activatePrompt = new ScreenPrompt(InputLibrary.toolActionPrimary, TranslationHandler.GetTranslation("Grapple_Activate", TranslationHandler.TextType.UI) + "   <CMD>");
 		_reelInPrompt = new ScreenPrompt(InputLibrary.thrustUp, TranslationHandler.GetTranslation("Graple_ReelIn", TranslationHandler.TextType.UI) + "   <CMD>");
 		_reelOutPrompt = new ScreenPrompt(InputLibrary.thrustDown, TranslationHandler.GetTranslation("Grapple_ReelOut", TranslationHandler.TextType.UI) + "   <CMD>");
+
+		Endpoint.gameObject.SetActive(false);
 
 		var playerAudioController = Locator.GetPlayerAudioController();
 
@@ -121,28 +134,39 @@ public class GrappleController : OWItem
 	{
 		if (OWInput.IsPressed(InputLibrary.toolActionPrimary, InputMode.Character))
 		{
-			if (TrifidJam3.Instance.Planet.transform.position.magnitude > 1000f)
+			/*if (TrifidJam3.Instance.Planet.transform.position.magnitude > 1000f)
             {
 				NotificationManager.SharedInstance.PostNotification(new NotificationData(NotificationTarget.Player, TranslationHandler.GetTranslation("Grapple_OutOfRange", TranslationHandler.TextType.UI), 2f), false);
-			}
-			else if (!_grappleActive)
+			}*/
+			if (!_grappleActive)
 			{
 				//NHLogger.Log("activate");
 				ActivateGrapple();
 			}
+			if (!_grappleConnected)
+			{
+				ConnectGrapple();
+			}
 		}
-		else if (_grappleActive)
+		else
 		{
-			//NHLogger.Log("release");
-			ReleaseGrapple();
-		}
+			if (_grappleActive)
+			{
+				DeactivateGrapple();
+			}
+            if (_grappleConnected)
+            {
+                //NHLogger.Log("release");
+                ReleaseGrapple();
+            }
+        }
 
-		if (OWInput.IsPressed(InputLibrary.thrustUp, InputMode.Character))
+		if (_grappleConnected && OWInput.IsPressed(InputLibrary.thrustUp, InputMode.Character))
 		{
 			//NHLogger.Log("reel in");
 			_reelDirection = -1;
 		}
-		else if (OWInput.IsPressed(InputLibrary.thrustDown, InputMode.Character))
+		else if (_grappleConnected && OWInput.IsPressed(InputLibrary.thrustDown, InputMode.Character))
 		{
 			//NHLogger.Log("reel out");
 			_reelDirection = 1;
@@ -156,22 +180,51 @@ public class GrappleController : OWItem
 		{
 			
 		}
+		else
+		{
+
+		}
 	}
 
 	public void ActivateGrapple()
 	{
-		_grappleActive = true;
-		_reelDirection = 0;
-		Light.intensity = 0.8f;
-		Light.range = 16f;
-	}
+        Light.intensity = LightActiveIntensity;
+        Light.range = LightActiveRange;
+
+        _grappleActive = true;
+    }
+
+	public void DeactivateGrapple()
+	{
+        Light.intensity = LightInactiveIntensity;
+        Light.range = LightInactiveRange;
+
+		_grappleActive = false;
+    }
+
+	public void ConnectGrapple()
+	{
+        if (Physics.Raycast(Locator.GetActiveCamera().transform.position, Locator.GetActiveCamera().transform.forward, out var hitInfo, MaxLength, OWLayerMask.groundMask))
+        {
+            Endpoint.transform.position = hitInfo.point;
+            Endpoint.transform.LookAt(hitInfo.point + hitInfo.normal);
+            Endpoint.transform.parent = hitInfo.collider.transform;
+            Endpoint.gameObject.SetActive(true);
+			Endpoint.UpdateLine();
+
+            _reelDirection = 0;
+            _targetLength = hitInfo.distance;
+			_grappleConnected = true;
+        }
+    }
 
 	public void ReleaseGrapple()
 	{
-		_grappleActive = false;
-		_reelDirection = 0;
-        Light.intensity = 0.4f;
-        Light.range = 8f;
+        Endpoint.transform.parent = transform;
+        Endpoint.transform.localPosition = Vector3.zero;
+        Endpoint.gameObject.SetActive(false);
+
+		_grappleConnected = false;
     }
 
 }
