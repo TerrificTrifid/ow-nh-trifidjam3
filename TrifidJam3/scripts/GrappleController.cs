@@ -19,7 +19,7 @@ public class GrappleController : OWItem
 
 	public Light Light;
 	public float LightActiveIntensity = 0.8f;
-	public float LightActiveRange = 16;
+	public float LightActiveRange = 8f;
 	public float LightInactiveIntensity = 0.4f;
 	public float LightInactiveRange = 8f;
 	public Transform AttachPoint;

@@ -8,9 +8,7 @@ namespace TrifidJam3
         public GrappleController Grapple;
 
         public LineRenderer Line;
-
-        public static int MinSegments = 5;
-        public static int MaxSegments = 25;
+        public static int Segments = 25;
 
         private void Awake()
         {
@@ -20,6 +18,7 @@ namespace TrifidJam3
         private void Start()
         {
             Grapple = GetComponentInParent<GrappleController>() ?? GrappleController.Instance;
+            Line.positionCount = Segments;
         }
 
         private void Update()
@@ -29,12 +28,18 @@ namespace TrifidJam3
 
         public void UpdateLine()
         {
-            Line.positionCount = (int)Mathf.Lerp(MinSegments, MaxSegments, transform.InverseTransformPoint(Grapple.transform.position).magnitude / GrappleController.MaxLength);
+            var separation = transform.InverseTransformPoint(Grapple.transform.position);
+            var distance = separation.magnitude;
+            //Line.positionCount = (int)Mathf.Lerp(MinSegments, MaxSegments, distance / GrappleController.MaxLength);
 
+            var p0 = transform.position;
+            var p1 = transform.TransformPoint(Vector3.forward * distance * 0.5f);
+            var p2 = Grapple.transform.TransformPoint(Vector3.forward * distance * 0.5f);
+            var p3 = Grapple.AttachPoint.position;
             for (int i = 0; i < Line.positionCount; i++)
             {
                 var t = (float)i / (Line.positionCount - 1);
-                Line.SetPosition(i, Vector3.Lerp(transform.position, Grapple.AttachPoint.position, t));
+                Line.SetPosition(i, CubicBezierCurve(p0, p1, p2, p3, t));
             }
         }
 
