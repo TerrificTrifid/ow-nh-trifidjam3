@@ -12,9 +12,9 @@ public class GrappleController : OWItem
 
 	public static float MaxLength = 50f;
 	public static float MinLength = 1f;
-	public static float ReelSpeed = 8f;
-	public static float SpringForce = 0.5f;
-	public static float SpringDamper = 0.5f;
+	public static float ReelSpeed = 16f;
+	public static float SpringForce = 0.2f;
+	public static float SpringDamper = 0.01f;
 
     private ScreenPrompt _activatePrompt;
 	private ScreenPrompt _reelInPrompt;
@@ -221,9 +221,9 @@ public class GrappleController : OWItem
         if (Physics.Raycast(Locator.GetActiveCamera().transform.position, Locator.GetActiveCamera().transform.forward, out var hitInfo, MaxLength, OWLayerMask.groundMask))
         {
 			if (hitInfo.distance < MinLength || hitInfo.rigidbody.GetAttachedOWRigidbody() == null) return;
-			NHLogger.Log(hitInfo.rigidbody.gameObject.name);
+			//NHLogger.Log(hitInfo.rigidbody.gameObject.name);
 			//NHLogger.Log(hitInfo.distance);
-			NHLogger.Log(hitInfo.point);
+			//NHLogger.Log(hitInfo.point);
 
 			Endpoint.transform.position = hitInfo.point;
             Endpoint.transform.LookAt(hitInfo.point + hitInfo.normal);
@@ -236,8 +236,8 @@ public class GrappleController : OWItem
 
 			// need the initial spring length to be 1 lol
 			player.MoveToPosition(playerPosition + (Locator.GetActiveCamera().transform.forward * (hitInfo.distance - 1f)));
-			NHLogger.Log(hitInfo.point - Locator.GetActiveCamera().transform.forward);
-			NHLogger.Log(playerPosition + (Locator.GetActiveCamera().transform.forward * (hitInfo.distance - 1f)));
+			//NHLogger.Log(hitInfo.point - Locator.GetActiveCamera().transform.forward);
+			//NHLogger.Log(playerPosition + (Locator.GetActiveCamera().transform.forward * (hitInfo.distance - 1f)));
 
 			_joint = hitInfo.rigidbody.gameObject.AddComponent<SpringJoint>();
 			_joint.connectedBody = player.GetRigidbody();
@@ -250,7 +250,7 @@ public class GrappleController : OWItem
 			//_joint.axis = Vector3.Cross(player.GetRelativeAcceleration(hitInfo.rigidbody.GetAttachedOWRigidbody()), player.transform.InverseTransformPoint(hitInfo.point)).normalized;
 			_joint.enableCollision = true;
 
-			_targetLength = hitInfo.distance;
+			_targetLength = hitInfo.distance - 1f;
             _joint.maxDistance = _targetLength;
             _joint.minDistance = _targetLength;
 			_joint.spring = SpringForce;
