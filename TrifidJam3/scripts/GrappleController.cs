@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using NewHorizons;
 using NewHorizons.Handlers;
 using NewHorizons.Utility.OWML;
@@ -13,9 +14,14 @@ public class GrappleController : OWItem
 	public static float MaxLength = 50f;
 	public static float MinLength = 1f;
 	public static float ReelSpeed = 16f;
-	public static float SpringForce = 0.2f;
+	public static float SpringStrength = 0.2f;
 	public static float SpringDamper = 0.01f;
+	public static float TorqueStrength = 50f;
+	public static float TorqueDeadzone = 0f;
 
+	public IInputCommands ActivateKey = InputLibrary.toolActionPrimary;
+    public IInputCommands ReelInKey = InputLibrary.toolOptionUp;
+    public IInputCommands ReelOutKey = InputLibrary.toolOptionDown;
     private ScreenPrompt _activatePrompt;
 	private ScreenPrompt _reelInPrompt;
 	private ScreenPrompt _reelOutPrompt;
@@ -51,9 +57,9 @@ public class GrappleController : OWItem
 
 	private void Start()
 	{
-		_activatePrompt = new ScreenPrompt(InputLibrary.toolActionPrimary, TranslationHandler.GetTranslation("Grapple_Activate", TranslationHandler.TextType.UI) + "   <CMD>");
-		_reelInPrompt = new ScreenPrompt(InputLibrary.thrustUp, TranslationHandler.GetTranslation("Grapple_ReelIn", TranslationHandler.TextType.UI) + "   <CMD>");
-		_reelOutPrompt = new ScreenPrompt(InputLibrary.thrustDown, TranslationHandler.GetTranslation("Grapple_ReelOut", TranslationHandler.TextType.UI) + "   <CMD>");
+		_activatePrompt = new ScreenPrompt(ActivateKey, TranslationHandler.GetTranslation("Grapple_Activate", TranslationHandler.TextType.UI) + "   <CMD>");
+		_reelInPrompt = new ScreenPrompt(ReelInKey, TranslationHandler.GetTranslation("Grapple_ReelIn", TranslationHandler.TextType.UI) + "   <CMD>");
+		_reelOutPrompt = new ScreenPrompt(ReelOutKey, TranslationHandler.GetTranslation("Grapple_ReelOut", TranslationHandler.TextType.UI) + "   <CMD>");
 
 		//Endpoint.gameObject.SetActive(false);
 
@@ -136,7 +142,7 @@ public class GrappleController : OWItem
 
 	private void Update()
 	{
-		if (OWInput.IsPressed(InputLibrary.toolActionPrimary, InputMode.Character))
+		if (OWInput.IsPressed(ActivateKey, InputMode.Character))
 		{
 			/*if (TrifidJam3.Instance.Planet.transform.position.magnitude > 1000f)
             {
@@ -157,12 +163,12 @@ public class GrappleController : OWItem
 			}
         }
 
-		if (_grappleConnected && OWInput.IsPressed(InputLibrary.thrustUp, InputMode.Character))
+		if (_grappleConnected && OWInput.IsPressed(ReelInKey, InputMode.Character))
 		{
 			//NHLogger.Log("reel in");
 			_reelDirection = -1;
 		}
-		else if (_grappleConnected && OWInput.IsPressed(InputLibrary.thrustDown, InputMode.Character))
+		else if (_grappleConnected && OWInput.IsPressed(ReelOutKey, InputMode.Character))
 		{
 			//NHLogger.Log("reel out");
 			_reelDirection = 1;
@@ -188,7 +194,16 @@ public class GrappleController : OWItem
 				_joint.maxDistance = _targetLength;
 				_joint.minDistance = _targetLength;
 
-                
+				var endpointDir = player.transform.InverseTransformPoint(Endpoint.transform.position).normalized;
+				var cameraDir = Locator.GetActiveCamera().transform.forward;
+				//var torque = -(Vector3.Project(relativeEndpoint, cameraDir) * 2f - relativeEndpoint);
+				var torqueDir = Vector3.Cross(endpointDir, Vector3.Cross(endpointDir, cameraDir));
+				var torqueForce = 1f - Vector3.Dot(endpointDir, cameraDir);
+				if (torqueForce > TorqueDeadzone)
+				{
+                    player.AddAcceleration(torqueDir * (torqueForce - TorqueDeadzone) * TorqueStrength);
+                }
+					
             }
 		}
 		else
@@ -253,7 +268,7 @@ public class GrappleController : OWItem
 			_targetLength = hitInfo.distance - 1f;
             _joint.maxDistance = _targetLength;
             _joint.minDistance = _targetLength;
-			_joint.spring = SpringForce;
+			_joint.spring = SpringStrength;
 			_joint.damper = SpringDamper;
 
             _reelDirection = 0;
