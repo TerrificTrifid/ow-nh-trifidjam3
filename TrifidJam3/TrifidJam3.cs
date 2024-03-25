@@ -6,6 +6,8 @@ using NewHorizons.Components.Props;
 using NewHorizons.Handlers;
 using HarmonyLib;
 using System.Reflection;
+using NewHorizons.Utility;
+using NewHorizons.Components;
 
 namespace TrifidJam3
 {
@@ -40,7 +42,15 @@ namespace TrifidJam3
 
                 Planet = NewHorizons.GetPlanet(TranslationHandler.GetTranslation("Echo Hike", TranslationHandler.TextType.UI));
 
-                
+                var crates = Planet.FindChild("Sector/PlanetInterior/EntranceRoot2/Interior/Crates/test");
+                foreach (var crate in crates.GetAllChildren())
+                {
+                    var physics = crate.AddComponent<AddPhysics>();
+                    physics.Sector = Planet.GetComponentInChildren<Sector>();
+                    physics.Mass = 0.001f;
+                    physics.Radius = 0f;
+                    physics.SuspendUntilImpact = false;
+                }
 
             });
         }
