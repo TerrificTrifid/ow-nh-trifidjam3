@@ -191,7 +191,7 @@ public class GrappleController : OWItem
                 var player = Locator.GetPlayerBody();
 				var camera = Locator.GetActiveCamera().transform;
 
-                _targetLength += _reelDirection * ReelSpeed * Time.fixedDeltaTime; // todo: increase speed over time
+                _targetLength += _reelDirection * ReelSpeed * Time.fixedDeltaTime * (_targetLength / MaxLength); // todo: increase speed over time?
 				_targetLength = Mathf.Clamp(_targetLength, MinLength - 1f, MaxLength - 1f);
 				_joint.maxDistance = _targetLength;
 				_joint.minDistance = _targetLength;
@@ -303,7 +303,7 @@ public class GrappleController : OWItem
             _joint2.enableCollision = true;
             _joint2.maxDistance = 0f;
             _joint2.minDistance = 0f;
-			if (hitInfo.rigidbody.isKinematic)
+			if (!hitInfo.rigidbody.isKinematic)
 			{
 				_joint2.spring = Spring2Strength;
 				_joint2.damper = Spring2Damper;

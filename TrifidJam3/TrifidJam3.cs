@@ -47,7 +47,7 @@ namespace TrifidJam3
                 {
                     var physics = crate.AddComponent<AddPhysics>();
                     physics.Sector = Planet.GetComponentInChildren<Sector>();
-                    physics.Mass = 0.001f;
+                    physics.Mass = 0.0005f * crate.transform.localScale.x;
                     physics.Radius = 0f;
                     physics.SuspendUntilImpact = false;
                 }

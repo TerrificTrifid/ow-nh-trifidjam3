@@ -7,7 +7,7 @@
         "surfaceGravity": 12,
         "hasMapMarker": true
     },
-    "Spawn": {
+    /*"Spawn": {
         "playerSpawn": {
             "alignRadial": true,
             "isDefault": true,
@@ -26,7 +26,7 @@
                 "z": 0
             }
         }
-    },
+    },*/
     "Orbit": {
         "primaryBody": "Jam 3 Sun",
         "semiMajorAxis": 15000,
