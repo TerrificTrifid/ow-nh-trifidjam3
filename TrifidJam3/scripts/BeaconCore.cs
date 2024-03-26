@@ -20,7 +20,6 @@ namespace TrifidJam3
         private void Awake()
         {
             _isLit = true;
-            _fade = FadeTime;
         }
 
         private void Start()
@@ -59,11 +58,7 @@ namespace TrifidJam3
             {
                 for (int i = 0; i < Lights.Length; i++)
                 {
-                    // i am going insane
-                    var light = Lights[i];
-                    light.intensity = _lightIntensities[i] * (_fade / FadeTime);
-                    Lights[i].intensity = (_fade / FadeTime);
-                    light.intensity = (_fade / FadeTime);
+                    Lights[i].intensity = _lightIntensities[i] * (_fade / FadeTime);
                 }
                 for (int j = 0; j < Emissions.Length; j++)
                 {
@@ -75,11 +70,13 @@ namespace TrifidJam3
         public void Activate()
         {
             _isLit = true;
+            _fade = 0f;
         }
 
         public void Deactivate()
         {
             _isLit = false;
+            _fade = FadeTime;
         }
 
         public bool IsLit() => _isLit;
