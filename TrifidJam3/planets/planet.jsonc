@@ -135,10 +135,34 @@
                 "alignmentFluid": true,
                 "allowShipAutoroll": true
             }
+        ],
+        "revealVolumes": [
+            {
+                "radius": 100,
+                "position": {
+                    "x": 0,
+                    "y": 300,
+                    "z": 0
+                },
+                "reveals": [ "EH_ENTRANCE_R1" ],
+                "revealOn": "enter",
+                "revealFor": "both"
+            },
+            {
+                "radius": 8,
+                "position": {
+                    "x": -92,
+                    "y": 175,
+                    "z": -12
+                },
+                "reveals": [ "EH_ENTRANCE_X1", "EH_CAVERN_R1" ],
+                "revealOn": "enter",
+                "revealFor": "both"
+            }
         ]
     },
     "ShipLog": {
-        "xmlFile": "planets/shiplog.xml",
+        "xmlFile": "planets/shiplog.xml"
     },
     "extras": {
         "farFromSun": true

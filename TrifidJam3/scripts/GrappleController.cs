@@ -323,7 +323,7 @@ public class GrappleController : OWItem
             _reelDirection = 0;
 			_grappleConnected = true;
 
-            //Locator.GetShipLogManager().RevealFact("");
+            Locator.GetShipLogManager().RevealFact(TranslationHandler.GetTranslation("EH_ENTRANCE_X2", TranslationHandler.TextType.UI));
 
             var newCharged = BeaconController.Instance.TouchBeacon(hitInfo.collider, _charged);
 			if (newCharged != _charged)
@@ -337,7 +337,7 @@ public class GrappleController : OWItem
                 }
 				else
 				{
-                    //Locator.GetShipLogManager().RevealFact(""); // ?
+                    Locator.GetShipLogManager().RevealFact(TranslationHandler.GetTranslation("EH_CAVERN_X3", TranslationHandler.TextType.UI));
                     _oneShotAudioSource.PlayOneShot(DischargeAudio, 1f);
                     ChargeEffect.SetActive(false);
                 }

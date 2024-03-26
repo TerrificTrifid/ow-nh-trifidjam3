@@ -59,8 +59,11 @@ namespace TrifidJam3
             {
                 for (int i = 0; i < Lights.Length; i++)
                 {
+                    // i am going insane
                     var light = Lights[i];
                     light.intensity = _lightIntensities[i] * (_fade / FadeTime);
+                    Lights[i].intensity = (_fade / FadeTime);
+                    light.intensity = (_fade / FadeTime);
                 }
                 for (int j = 0; j < Emissions.Length; j++)
                 {

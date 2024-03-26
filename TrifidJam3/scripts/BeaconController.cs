@@ -1,4 +1,5 @@
 ﻿using NewHorizons;
+using NewHorizons.Handlers;
 using NewHorizons.Utility;
 using NewHorizons.Utility.OWML;
 using UnityEngine;
@@ -96,7 +97,8 @@ namespace TrifidJam3
 
         public void TriggerEnding()
         {
-            //Locator.GetShipLogManager().RevealFact("");
+            Locator.GetShipLogManager().RevealFact(TranslationHandler.GetTranslation("EH_PHOSPHORS_X1", TranslationHandler.TextType.UI));
+            Locator.GetShipLogManager().RevealFact(TranslationHandler.GetTranslation("EH_PHOSPHORS_X2", TranslationHandler.TextType.UI));
             AbstractEnding.Instance.gameObject.SetActive(true);
             AbstractEnding.Instance.Particles.Play();
             _endingTriggered = true;
