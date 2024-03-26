@@ -34,6 +34,7 @@ public class GrappleController : OWItem
 	public float LightInactiveRange = 8f;
 	public Transform AttachPoint;
 	public GrappleEndpoint Endpoint;
+	public GameObject ChargeEffect;
 
 	public AudioClip AmbienceAudio;
 	private OWAudioSource _ambienceAudioSource;
@@ -41,6 +42,8 @@ public class GrappleController : OWItem
     private OWAudioSource _reelAudioSource;
     public AudioClip ActivateAudio;
 	public AudioClip ReleaseAudio;
+	public AudioClip ChargeAudio;
+	public AudioClip DischargeAudio;
 	private OWAudioSource _oneShotAudioSource;
 
 	private bool _grappleActive;
@@ -320,18 +323,24 @@ public class GrappleController : OWItem
             _reelDirection = 0;
 			_grappleConnected = true;
 
-			var newCharged = BeaconController.Instance.TouchBeacon(hitInfo.collider, _charged);
+            //Locator.GetShipLogManager().RevealFact("");
+
+            var newCharged = BeaconController.Instance.TouchBeacon(hitInfo.collider, _charged);
 			if (newCharged != _charged)
 			{
 				_charged = newCharged;
 				if (_charged)
 				{
-
-				}
+                    //Locator.GetShipLogManager().RevealFact("");
+                    _oneShotAudioSource.PlayOneShot(ChargeAudio, 1f);
+					ChargeEffect.SetActive(true);
+                }
 				else
 				{
-
-				}
+                    //Locator.GetShipLogManager().RevealFact(""); // ?
+                    _oneShotAudioSource.PlayOneShot(DischargeAudio, 1f);
+                    ChargeEffect.SetActive(false);
+                }
 			}
         }
     }

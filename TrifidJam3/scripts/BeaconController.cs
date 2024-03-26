@@ -10,8 +10,6 @@ namespace TrifidJam3
         public static BeaconController Instance { get; private set; }
         public static int BeaconAmount = 4;
 
-        public GameObject Ending;
-
         private BeaconTower[] _towers;
         private BeaconCore[] _cores;
         private bool _endingTriggered;
@@ -94,6 +92,8 @@ namespace TrifidJam3
 
         public void TriggerEnding()
         {
+            //Locator.GetShipLogManager().RevealFact("");
+            AbstractEnding.Instance.gameObject.SetActive(true);
             _endingTriggered = true;
         }
     }

@@ -7,6 +7,7 @@ namespace TrifidJam3
     {
         public static GrappleMusicController Instance { get; private set; }
 
+        public OWTriggerVolume Trigger;
         public AudioClip[] Music;
         private OWAudioSource[] _audioSources;
         private int _currentMusic;
@@ -16,12 +17,14 @@ namespace TrifidJam3
         private void Awake()
         {
             Instance = this;
+            Trigger.OnEntry += OnEntry;
+            Trigger.OnExit += OnExit;
         }
 
         private void Start()
         {
             var playerAudioController = Locator.GetPlayerAudioController();
-
+            _audioSources = new OWAudioSource[Music.Length];
             for(int i = 0; i < Music.Length; i++)
             {
                 _audioSources[i] = Instantiate(
@@ -41,7 +44,7 @@ namespace TrifidJam3
             var body = hitobj.GetAttachedOWRigidbody();
             if (!body.CompareTag("Player")) return;
 
-            Play(BeaconController.Instance.GetActiveCount());
+            Play(BeaconController.Instance.GetActiveCount() - 1);
             _isPlaying = true;
         }
 

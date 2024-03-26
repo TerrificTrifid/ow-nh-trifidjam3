@@ -1,6 +1,5 @@
 ﻿using NewHorizons;
 using UnityEngine;
-using static RumbleManager.Rumble;
 
 namespace TrifidJam3
 {
