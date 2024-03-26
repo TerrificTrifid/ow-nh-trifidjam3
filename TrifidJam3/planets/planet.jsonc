@@ -111,7 +111,7 @@
                 "radius": 350
             },
             {
-                "audio": "HGT_Ambience_Cave_Small", // HGT_Ambience_Cave_Big
+                "audio": "HGT_Ambience_Cave_Big", // HGT_Ambience_Cave_Small
                 "track": "environment",
                 "volume": 0.5,
                 "layer": 1,

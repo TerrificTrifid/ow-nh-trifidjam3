@@ -103,5 +103,15 @@ namespace TrifidJam3
             AbstractEnding.Instance.Particles.Play();
             _endingTriggered = true;
         }
+
+        public void RefreshCores()
+        {
+            foreach (var core in _cores)
+            {
+                //if (core.IsLit()) core.Activate();
+                //else core.Deactivate();
+                core.ApplyFade();
+            }
+        }
     }
 }

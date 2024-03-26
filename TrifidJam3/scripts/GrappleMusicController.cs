@@ -46,6 +46,8 @@ namespace TrifidJam3
             var body = hitobj.GetAttachedOWRigidbody();
             if (!body.CompareTag("Player")) return;
 
+            BeaconController.Instance.RefreshCores();
+
             Play(BeaconController.Instance.GetActiveCount() - 1);
             _isPlaying = true;
         }

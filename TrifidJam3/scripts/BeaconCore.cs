@@ -56,14 +56,7 @@ namespace TrifidJam3
 
             if (change)
             {
-                for (int i = 0; i < Lights.Length; i++)
-                {
-                    Lights[i].intensity = _lightIntensities[i] * (_fade / FadeTime);
-                }
-                for (int j = 0; j < Emissions.Length; j++)
-                {
-                    Emissions[j].material.SetColor("_EmissionColor", _emissionColors[j] * (_fade / FadeTime));
-                }
+                ApplyFade();
             }
         }
 
@@ -80,5 +73,17 @@ namespace TrifidJam3
         }
 
         public bool IsLit() => _isLit;
+
+        public void ApplyFade()
+        {
+            for (int i = 0; i < Lights.Length; i++)
+            {
+                Lights[i].intensity = _lightIntensities[i] * (_fade / FadeTime);
+            }
+            for (int j = 0; j < Emissions.Length; j++)
+            {
+                Emissions[j].material.SetColor("_EmissionColor", _emissionColors[j] * (_fade / FadeTime));
+            }
+        }
     }
 }
