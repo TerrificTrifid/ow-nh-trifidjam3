@@ -10,5 +10,27 @@
 		"Grapple_ReelOut": "Reel Out",
 		"Grapple_OutOfRange": "ERROR: OUT OF RANGE"
 
+	},
+	"ShipLogDictionary": {
+
+		"EH_Cavern": "Frozen Cavern",
+		"EH_Cavern_R1": "A doorway is blocked by crates, but I can see something on the other side.",
+		"EH_Cavern_R1_Name": "Blocked Doorway",
+		"EH_Cavern_X1": "The entrance structure seemingly broke through the crust and into the hollow interior. A nearby stalactite has a glowing beacon.",
+		"EH_Cavern_X2": "There are other beacons in the cavern, but they are unlit.",
+		"EH_Cavern_X3": "I can charge the device by grabbing a lit beacon, and use the charge to light an unlit beacon.",
+
+		"EH_Entrance": "Sunken Entrance",
+		"EH_Entrance_R1": "A beacon is lit at the north pole. Wires lead to a chasm nearby.",
+		"EH_Entrance_R1_Name": "Beacon",
+		"EH_Entrance_X1": "An unknown structure at the bottom of a chasm. Crates within it are piled up along the walls due to slanted gravity.",
+		"EH_Entrance_X2": "I found a device that can grab what I aim at with an energy beam! I can use it to move objects, or myself if I attach to a wall.",
+
+		"EH_Phosphors": "Phosphor Shoal",
+		"EH_Phosphors_R1": "There are several beacons in the cavern, but only one is lit.",
+		"EH_Phosphors_R1_Name": "Scattered Beacons",
+		"EH_Phosphors_X1": "I used the device to light all four beacons, which caused the cavern to fill with phosphors.",
+		"EH_Phosphors_X2": "I’m not sure what I accomplished as nothing else happened, but I sense the planet appreciated it."
+
 	}
 }

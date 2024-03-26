@@ -59,11 +59,12 @@ namespace TrifidJam3
             {
                 for (int i = 0; i < Lights.Length; i++)
                 {
-                    Lights[i].intensity = _lightIntensities[i] * (_fade / FadeTime);
+                    var light = Lights[i];
+                    light.intensity = _lightIntensities[i] * (_fade / FadeTime);
                 }
-                for (int i = 0; i < Emissions.Length; i++)
+                for (int j = 0; j < Emissions.Length; j++)
                 {
-                    Emissions[i].material.SetColor("_EmissionColor", _emissionColors[i] * (_fade / FadeTime));
+                    Emissions[j].material.SetColor("_EmissionColor", _emissionColors[j] * (_fade / FadeTime));
                 }
             }
         }

@@ -1,9 +1,43 @@
 {
 	"$schema": "https://raw.githubusercontent.com/xen-42/outer-wilds-new-horizons/main/NewHorizons/Schemas/star_system_schema.json",
 	"curiosities": [
-
+		{
+			"id": "EH_CAVERN",
+			"color": {
+				"r": 96,
+				"g": 128,
+				"b": 192,
+				"a": 255
+			},
+			"highlightColor": {
+				"r": 128,
+				"g": 192,
+				"b": 255,
+				"a": 255
+			}
+		}
 	],
 	"entryPositions": [
-
+		{
+			"id": "EH_CAVERN",
+			"position": {
+				"x": 0,
+				"y": 0
+			}
+		},
+		{
+			"id": "EH_ENTRANCE",
+			"position": {
+				"x": -200,
+				"y": 100
+			}
+		},
+		{
+			"id": "EH_PHOSPHORS",
+			"position": {
+				"x": -100,
+				"y": 200
+			}
+		}
 	]
 }

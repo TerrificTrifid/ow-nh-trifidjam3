@@ -1,0 +1,82 @@
+<AstroObjectEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/shiplog_schema.xsd">
+	<ID>Echo Hike</ID>
+
+	<Entry>
+		<ID>EH_CAVERN</ID>
+		<Name>EH_Cavern</Name>
+		<Curiosity>EH_CAVERN</Curiosity>
+		<IsCuriosity />
+
+		<RumorFact>
+			<ID>EH_CAVERN_R1</ID>
+			<SourceID>EH_ENTRANCE</SourceID>
+			<RumorName>EH_Cavern_R1_Name</RumorName>
+			<Text>EH_Cavern_R1</Text>
+		</RumorFact>
+
+		<ExploreFact>
+			<ID>EH_CAVERN_X1</ID>
+			<Text>EH_Cavern_X1</Text>
+		</ExploreFact>
+
+		<ExploreFact>
+			<ID>EH_CAVERN_X2</ID>
+			<Text>EH_Cavern_X2</Text>
+		</ExploreFact>
+
+		<ExploreFact>
+			<ID>EH_CAVERN_X3</ID>
+			<Text>EH_Cavern_X3</Text>
+		</ExploreFact>
+
+	</Entry>
+
+	<Entry>
+		<ID>EH_ENTRANCE</ID>
+		<Name>EH_Entrance</Name>
+		<Curiosity>EH_CAVERN</Curiosity>
+
+		<RumorFact>
+			<ID>EH_ENTRANCE_R1</ID>
+			<RumorName>EH_Entrance_R1_Name</RumorName>
+			<Text>EH_Entrance_R1</Text>
+		</RumorFact>
+		
+		<ExploreFact>
+			<ID>EH_ENTRANCE_X1</ID>
+			<Text>EH_Entrance_X1</Text>
+		</ExploreFact>
+
+		<ExploreFact>
+			<ID>EH_ENTRANCE_X2</ID>
+			<Text>EH_Entrance_X2</Text>
+		</ExploreFact>
+		
+	</Entry>
+
+	<Entry>
+		<ID>EH_PHOSPHORS</ID>
+		<Name>EH_Phosphors</Name>
+		<Curiosity>EH_CAVERN</Curiosity>
+
+		<RumorFact>
+			<ID>EH_PHOSPHORS_R1</ID>
+			<SourceID>EH_CAVERN</SourceID>
+			<RumorName>EH_Phosphors_R1_Name</RumorName>
+			<Text>EH_Phosphors_R1</Text>
+		</RumorFact>
+
+		<ExploreFact>
+			<ID>EH_PHOSPHORS_X1</ID>
+			<Text>EH_Phosphors_X1</Text>
+		</ExploreFact>
+
+		<ExploreFact>
+			<ID>EH_PHOSPHORS_X2</ID>
+			<Text>EH_Phosphors_X2</Text>
+		</ExploreFact>
+
+	</Entry>
+	
+</AstroObjectEntry>

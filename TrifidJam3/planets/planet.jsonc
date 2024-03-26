@@ -81,6 +81,24 @@
                 "isRelativeToParent": true,
                 "keepLoaded": true
             }
+        ],
+        "entryLocation": [
+            {
+                "id": "EH_CAVERN",
+                "position": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                }
+            },
+            {
+                "id": "EH_ENTRANCE",
+                "position": {
+                    "x": -92,
+                    "y": 197,
+                    "z": -12
+                }
+            }
         ]
     },
     "Volumes": {
@@ -118,6 +136,9 @@
                 "allowShipAutoroll": true
             }
         ]
+    },
+    "ShipLog": {
+        "xmlFile": "planets/shiplog.xml",
     },
     "extras": {
         "farFromSun": true
