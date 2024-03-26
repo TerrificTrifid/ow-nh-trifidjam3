@@ -159,7 +159,16 @@
                 "revealOn": "enter",
                 "revealFor": "both"
             }
-        ]
+        ],
+        "rulesets": {
+            "playerImpactRulesets": [
+                {
+                    "minImpactSpeed": 60,
+                    "maxImpactSpeed": 120,
+                    "radius": 214
+                }
+            ]
+        }
     },
     "ShipLog": {
         "xmlFile": "planets/shiplog.xml"

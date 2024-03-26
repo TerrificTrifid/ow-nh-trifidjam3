@@ -12,7 +12,7 @@ public class GrappleController : OWItem
 {
 	public static GrappleController Instance { get; private set; }
 
-	public static float MaxLength = 50f;
+	public static float MaxLength = 75f;
 	public static float MinLength = 1f;
 	public static float ReelSpeed = 16f;
 	public static float SpringStrength = 0.2f;
