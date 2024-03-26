@@ -171,7 +171,8 @@
         }
     },
     "ShipLog": {
-        "xmlFile": "planets/shiplog.xml"
+        "xmlFile": "planets/shiplog.xml",
+        "spriteFolder": "planets"
     },
     "extras": {
         "farFromSun": true

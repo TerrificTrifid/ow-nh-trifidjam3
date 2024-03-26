@@ -77,6 +77,11 @@
 			<Text>EH_Phosphors_X2</Text>
 		</ExploreFact>
 
+		<ExploreFact>
+			<ID>EH_PHOSPHORS_X3</ID>
+			<Text>EH_Phosphors_X3</Text>
+		</ExploreFact>
+
 	</Entry>
 	
 </AstroObjectEntry>

@@ -29,8 +29,9 @@
 		"EH_Phosphors": "Phosphor Shoal",
 		"EH_Phosphors_R1": "There are several beacons in the cavern, but only one is lit.",
 		"EH_Phosphors_R1_Name": "Scattered Beacons",
-		"EH_Phosphors_X1": "I used the device to light all four beacons, which caused the cavern to fill with phosphors.",
-		"EH_Phosphors_X2": "I’m not sure what I accomplished as nothing else happened, but I sense the planet appreciated it."
+		"EH_Phosphors_X1": "I used the device to light all four beacons, which caused the cavern to fill with phosphors!",
+		"EH_Phosphors_X2": "I’m not sure what I accomplished, but I sense the planet appreciated it.",
+		"EH_Phosphors_X3": "Thanks for playing! The phosphor community probably would’t mind if the Threader saw the stars ;3"
 
 	}
 }
