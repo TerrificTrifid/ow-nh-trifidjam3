@@ -11,6 +11,7 @@ namespace TrifidJam3
         private OWAudioSource[] _audioSources;
         private int _currentMusic;
         public static float FadeTime = 3f;
+        private bool _isPlaying;
 
         private void Awake()
         {
@@ -34,6 +35,26 @@ namespace TrifidJam3
             
         }
 
+        private void OnEntry(GameObject hitobj)
+        {
+            if (_isPlaying) return;
+            var body = hitobj.GetAttachedOWRigidbody();
+            if (!body.CompareTag("Player")) return;
+
+            Play(BeaconController.Instance.GetActiveCount());
+            _isPlaying = true;
+        }
+
+        private void OnExit(GameObject hitobj)
+        {
+            if (!_isPlaying) return;
+            var body = hitobj.GetAttachedOWRigidbody();
+            if (!body.CompareTag("Player")) return;
+
+            Stop();
+            _isPlaying = false;
+        }
+
         public void Play(int i)
         {
             _currentMusic = i;
@@ -53,5 +74,7 @@ namespace TrifidJam3
 
             _currentMusic = i;
         }
+
+        public bool IsPlaying() => _isPlaying;
     }
 }

@@ -49,6 +49,7 @@ public class GrappleController : OWItem
 	private float _targetLength;
 	private SpringJoint _joint;
 	private SpringJoint _joint2;
+	private bool _charged;
 
 	public override void Awake()
 	{
@@ -318,6 +319,20 @@ public class GrappleController : OWItem
 			_ambienceAudioSource.FadeIn(0.05f);
             _reelDirection = 0;
 			_grappleConnected = true;
+
+			var newCharged = BeaconController.Instance.TouchBeacon(hitInfo.collider, _charged);
+			if (newCharged != _charged)
+			{
+				_charged = newCharged;
+				if (_charged)
+				{
+
+				}
+				else
+				{
+
+				}
+			}
         }
     }
 
