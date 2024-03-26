@@ -191,7 +191,7 @@ public class GrappleController : OWItem
                 var player = Locator.GetPlayerBody();
 				var camera = Locator.GetActiveCamera().transform;
 
-                _targetLength += _reelDirection * ReelSpeed * Time.fixedDeltaTime * (_targetLength / MaxLength); // todo: increase speed over time?
+                _targetLength += _reelDirection * ReelSpeed * Time.fixedDeltaTime * (Mathf.Max(_targetLength, 10f) / MaxLength); // todo: increase speed over time?
 				_targetLength = Mathf.Clamp(_targetLength, MinLength - 1f, MaxLength - 1f);
 				_joint.maxDistance = _targetLength;
 				_joint.minDistance = _targetLength;
@@ -313,7 +313,9 @@ public class GrappleController : OWItem
                 _joint2.spring = 0;
                 _joint2.damper = 0;
             }
-            
+
+            _oneShotAudioSource.PlayOneShot(ActivateAudio, 1f);
+			_ambienceAudioSource.FadeIn(0.05f);
             _reelDirection = 0;
 			_grappleConnected = true;
         }
@@ -327,6 +329,9 @@ public class GrappleController : OWItem
 
 		DestroyImmediate(_joint);
 		DestroyImmediate(_joint2);
+
+		_oneShotAudioSource.PlayOneShot(ReleaseAudio, 1f);
+		_ambienceAudioSource.FadeOut(0.05f);
 
 		_grappleConnected = false;
     }

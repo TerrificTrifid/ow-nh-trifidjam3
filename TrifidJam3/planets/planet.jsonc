@@ -93,12 +93,13 @@
                 "radius": 350
             },
             {
-                "audio": "HGT_Ambience_Cave_Big",
+                "audio": "HGT_Ambience_Cave_Small", // HGT_Ambience_Cave_Big
                 "track": "environment",
                 "volume": 0.5,
                 "layer": 1,
                 "priority": 1,
-                "radius": 214
+                "radius": 214,
+                "rename": "MainAmbience"
             }
         ],
         "reverbVolumes": [
