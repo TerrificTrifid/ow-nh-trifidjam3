@@ -318,7 +318,7 @@ public class GrappleController : OWItem
                 _joint2.damper = 0;
             }
 
-            _oneShotAudioSource.PlayOneShot(ActivateAudio, 2f);
+            _oneShotAudioSource.PlayOneShot(ActivateAudio, 1f);
 			_ambienceAudioSource.FadeIn(0.05f);
             _reelDirection = 0;
 			_grappleConnected = true;
@@ -354,8 +354,8 @@ public class GrappleController : OWItem
 		DestroyImmediate(_joint);
 		DestroyImmediate(_joint2);
 
-		_oneShotAudioSource.PlayOneShot(ReleaseAudio, 1f);
-		_ambienceAudioSource.FadeOut(0.05f);
+		_oneShotAudioSource.PlayOneShot(ReleaseAudio, 0.7f);
+		_ambienceAudioSource.FadeOut(0.1f);
 
 		_grappleConnected = false;
     }

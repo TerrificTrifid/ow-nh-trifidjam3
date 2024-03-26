@@ -76,12 +76,12 @@ namespace TrifidJam3
                     }
                     else if (charged)
                     {
-                        var activeCount = GetActiveCount();
-                        GrappleMusicController.Instance.SwitchTo(activeCount - 1);
                         _cores[i].Activate();
                         _towers[i].Activate();
                         charged = false;
 
+                        var activeCount = GetActiveCount();
+                        GrappleMusicController.Instance.SwitchTo(activeCount - 1);
                         if (!_endingTriggered && activeCount == BeaconAmount)
                         {
                             TriggerEnding();
@@ -98,6 +98,7 @@ namespace TrifidJam3
         {
             //Locator.GetShipLogManager().RevealFact("");
             AbstractEnding.Instance.gameObject.SetActive(true);
+            AbstractEnding.Instance.Particles.Play();
             _endingTriggered = true;
         }
     }

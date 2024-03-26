@@ -52,7 +52,7 @@ namespace TrifidJam3
                     physics.SuspendUntilImpact = false;
                 }
 
-                Planet.FindChild("Sector/MainAmbience").GetComponent<OWAudioSource>().pitch = 0.5f;
+                //Planet.FindChild("Sector/MainAmbience").GetComponent<OWAudioSource>().pitch = 0.5f;
 
             });
         }
