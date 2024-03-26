@@ -21,6 +21,7 @@ namespace TrifidJam3
         {
             _ambientIntensity = AmbientLight.intensity;
             _maxParticles = Particles.main.startLifetimeMultiplier * Particles.emission.rateOverTimeMultiplier;
+            gameObject.SetActive(false);
         }
 
         private void FixedUpdate()

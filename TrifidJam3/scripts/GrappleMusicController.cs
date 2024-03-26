@@ -11,7 +11,7 @@ namespace TrifidJam3
         public AudioClip[] Music;
         private OWAudioSource[] _audioSources;
         private int _currentMusic;
-        public static float FadeTime = 3f;
+        public static float FadeTime = 5f;
         private bool _isPlaying;
 
         private void Awake()
@@ -33,6 +33,7 @@ namespace TrifidJam3
                 );
                 _audioSources[i].clip = Music[i];
                 _audioSources[i].loop = true;
+                _audioSources[i].SetMaxVolume(0.7f);
             }
 
             
@@ -61,7 +62,7 @@ namespace TrifidJam3
         public void Play(int i)
         {
             _currentMusic = i;
-            _audioSources[_currentMusic].FadeIn(FadeTime);
+            _audioSources[_currentMusic].FadeIn(FadeTime, true);
         }
 
         public void Stop()

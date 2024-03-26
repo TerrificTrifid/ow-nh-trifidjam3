@@ -86,7 +86,7 @@ public class GrappleController : OWItem
 
         _ambienceAudioSource.clip = AmbienceAudio;
         _ambienceAudioSource.loop = true;
-        _ambienceAudioSource.SetMaxVolume(0.1f);
+        _ambienceAudioSource.SetMaxVolume(0.3f);
         _reelAudioSource.clip = ReelAudio;
         _reelAudioSource.loop = true;
         _reelAudioSource.SetMaxVolume(0.5f);
@@ -195,7 +195,7 @@ public class GrappleController : OWItem
                 var player = Locator.GetPlayerBody();
 				var camera = Locator.GetActiveCamera().transform;
 
-                _targetLength += _reelDirection * ReelSpeed * Time.fixedDeltaTime * (Mathf.Max(_targetLength, 10f) / MaxLength); // todo: increase speed over time?
+                _targetLength += _reelDirection * ReelSpeed * Time.fixedDeltaTime * (Mathf.Max(_targetLength, 20f) / MaxLength); // todo: increase speed over time?
 				_targetLength = Mathf.Clamp(_targetLength, MinLength - 1f, MaxLength - 1f);
 				_joint.maxDistance = _targetLength;
 				_joint.minDistance = _targetLength;
@@ -295,7 +295,7 @@ public class GrappleController : OWItem
 			_joint.autoConfigureConnectedAnchor = false;
 			_joint.connectedAnchor = Vector3.zero;
 			_joint.enableCollision = true;
-			_targetLength = hitInfo.distance - 1f;
+			_targetLength = hitInfo.distance; // - 1f
             _joint.maxDistance = _targetLength;
             _joint.minDistance = _targetLength;
 			_joint.spring = SpringStrength;
@@ -318,7 +318,7 @@ public class GrappleController : OWItem
                 _joint2.damper = 0;
             }
 
-            _oneShotAudioSource.PlayOneShot(ActivateAudio, 1f);
+            _oneShotAudioSource.PlayOneShot(ActivateAudio, 2f);
 			_ambienceAudioSource.FadeIn(0.05f);
             _reelDirection = 0;
 			_grappleConnected = true;

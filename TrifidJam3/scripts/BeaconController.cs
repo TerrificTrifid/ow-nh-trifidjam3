@@ -64,6 +64,8 @@ namespace TrifidJam3
 
         public bool TouchBeacon(Collider collider, bool charged)
         {
+            if (_endingTriggered) return false;
+
             for (int i = 0; i < BeaconAmount; i++)
             {
                 if (_cores[i].Collider.Equals(collider))
@@ -74,11 +76,13 @@ namespace TrifidJam3
                     }
                     else if (charged)
                     {
+                        var activeCount = GetActiveCount();
+                        GrappleMusicController.Instance.SwitchTo(activeCount - 1);
                         _cores[i].Activate();
                         _towers[i].Activate();
                         charged = false;
 
-                        if (!_endingTriggered && GetActiveCount() == BeaconAmount)
+                        if (!_endingTriggered && activeCount == BeaconAmount)
                         {
                             TriggerEnding();
                         }
