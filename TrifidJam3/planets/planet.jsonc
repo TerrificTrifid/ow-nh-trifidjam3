@@ -172,7 +172,10 @@
     },
     "ShipLog": {
         "xmlFile": "planets/shiplog.xml",
-        "spriteFolder": "planets"
+        "spriteFolder": "planets",
+        "mapMode": {
+            "revealedSprite": "planets/Echo Hike.png"
+        }
     },
     "extras": {
         "farFromSun": true
