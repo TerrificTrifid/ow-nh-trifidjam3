@@ -9,6 +9,7 @@ namespace TrifidJam3
 
         public OWTriggerVolume Trigger;
         public AudioClip[] Music;
+        public AudioClip SillyMusic;
         private OWAudioSource[] _audioSources;
         private int _currentMusic;
         public static float FadeTime = 5f;
@@ -37,7 +38,7 @@ namespace TrifidJam3
                 _audioSources[i].SetTrack(OWAudioMixer.TrackName.Music);
             }
 
-            
+            SetEndingMusic(TrifidJam3.Instance.SillyMode);
         }
 
         private void OnEntry(GameObject hitobj)
@@ -83,5 +84,11 @@ namespace TrifidJam3
         }
 
         public bool IsPlaying() => _isPlaying;
+
+        public void SetEndingMusic(bool silly)
+        {
+            int i = _audioSources.Length - 1;
+            _audioSources[i].clip = silly ? SillyMusic : Music[i];
+        }
     }
 }

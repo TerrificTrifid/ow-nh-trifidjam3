@@ -19,6 +19,8 @@ namespace TrifidJam3
 
         public GameObject Planet;
 
+        public bool SillyMode;
+
         private void Awake()
         {
             // You won't be able to access OWML's mod helper in Awake.
@@ -35,6 +37,8 @@ namespace TrifidJam3
             // Get the New Horizons API and load configs
             NewHorizons = ModHelper.Interaction.TryGetModApi<INewHorizons>("xen.NewHorizons");
             NewHorizons.LoadConfigs(this);
+
+            SillyMode = true; //ModHelper.Config.GetSettingsValue<bool>("Silly mode");
 
             NewHorizons.GetStarSystemLoadedEvent().AddListener(system =>
             {
@@ -56,5 +60,15 @@ namespace TrifidJam3
 
             });
         }
+
+        /*public override void Configure(IModConfig config)
+        {
+            SillyMode = config.GetSettingsValue<bool>("Silly mode");
+            if (AbstractEnding.Instance != null)
+            {
+                AbstractEnding.Instance.SetEnding(SillyMode);
+                GrappleMusicController.Instance.SetEndingMusic(SillyMode);
+            }
+        }*/
     }
 }

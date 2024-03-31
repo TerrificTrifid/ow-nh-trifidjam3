@@ -97,13 +97,11 @@ namespace TrifidJam3
 
         public void TriggerEnding()
         {
-            Locator.GetShipLogManager().RevealFact(TranslationHandler.GetTranslation("EH_PHOSPHORS_X1", TranslationHandler.TextType.UI));
-            Locator.GetShipLogManager().RevealFact(TranslationHandler.GetTranslation("EH_PHOSPHORS_X2", TranslationHandler.TextType.UI));
-            Locator.GetShipLogManager().RevealFact(TranslationHandler.GetTranslation("EH_PHOSPHORS_X3", TranslationHandler.TextType.UI));
-            AbstractEnding.Instance.gameObject.SetActive(true);
-            AbstractEnding.Instance.Particles.Play();
+            AbstractEnding.Instance.TriggerEnding();
             _endingTriggered = true;
         }
+
+        public bool IsEndingTriggered() => _endingTriggered;
 
         public void RefreshCores()
         {

@@ -193,7 +193,7 @@ public class GrappleController : OWItem
 			else
 			{
                 var player = Locator.GetPlayerBody();
-				var camera = Locator.GetActiveCamera().transform;
+				var camera = Locator.GetToolModeSwapper()._firstPersonManipulator.transform;
 
                 _targetLength += _reelDirection * ReelSpeed * Time.fixedDeltaTime * (Mathf.Max(_targetLength, 20f) / MaxLength); // todo: increase speed over time?
 				_targetLength = Mathf.Clamp(_targetLength, MinLength - 1f, MaxLength - 1f);
@@ -262,7 +262,8 @@ public class GrappleController : OWItem
 
 	public void ConnectGrapple()
 	{
-        if (Physics.Raycast(Locator.GetActiveCamera().transform.position, Locator.GetActiveCamera().transform.forward, out var hitInfo, MaxLength, OWLayerMask.groundMask))
+		var aim = Locator.GetToolModeSwapper()._firstPersonManipulator.transform;
+        if (Physics.Raycast(aim.position, aim.forward, out var hitInfo, MaxLength, OWLayerMask.groundMask))
         {
 			if (hitInfo.distance < MinLength || hitInfo.rigidbody.GetAttachedOWRigidbody() == null) return;
 			//NHLogger.Log(hitInfo.rigidbody.gameObject.name);
@@ -279,7 +280,7 @@ public class GrappleController : OWItem
 			var playerPosition = player.transform.position;
 
 			// need the initial spring length to be 1 lol
-			player.MoveToPosition(playerPosition + (Locator.GetActiveCamera().transform.forward * (hitInfo.distance - 1f)));
+			player.MoveToPosition(playerPosition + (aim.forward * (hitInfo.distance - 1f)));
 			//NHLogger.Log(hitInfo.point - Locator.GetActiveCamera().transform.forward);
 			//NHLogger.Log(playerPosition + (Locator.GetActiveCamera().transform.forward * (hitInfo.distance - 1f)));
 
@@ -301,9 +302,9 @@ public class GrappleController : OWItem
 			_joint.spring = SpringStrength;
 			_joint.damper = SpringDamper;
 
-            _joint2.anchor = _joint.anchor;
+			_joint2.anchor = Vector3.zero; //_joint.anchor;
             _joint2.autoConfigureConnectedAnchor = false;
-            _joint2.connectedAnchor = player.transform.InverseTransformPoint(Locator.GetActiveCamera().transform.forward * (hitInfo.distance + 1f));
+            _joint2.connectedAnchor = player.transform.InverseTransformPoint(aim.forward * (hitInfo.distance + 1f));
             _joint2.enableCollision = true;
             _joint2.maxDistance = 0f;
             _joint2.minDistance = 0f;
