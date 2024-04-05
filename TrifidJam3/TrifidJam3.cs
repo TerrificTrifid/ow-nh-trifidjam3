@@ -38,7 +38,7 @@ namespace TrifidJam3
             NewHorizons = ModHelper.Interaction.TryGetModApi<INewHorizons>("xen.NewHorizons");
             NewHorizons.LoadConfigs(this);
 
-            SillyMode = true; //ModHelper.Config.GetSettingsValue<bool>("Silly mode");
+            SillyMode = ModHelper.Config.GetSettingsValue<bool>("SillyMode");
 
             NewHorizons.GetStarSystemLoadedEvent().AddListener(system =>
             {
@@ -61,14 +61,14 @@ namespace TrifidJam3
             });
         }
 
-        /*public override void Configure(IModConfig config)
+        public override void Configure(IModConfig config)
         {
-            SillyMode = config.GetSettingsValue<bool>("Silly mode");
+            SillyMode = config.GetSettingsValue<bool>("SillyMode");
             if (AbstractEnding.Instance != null)
             {
                 AbstractEnding.Instance.SetEnding(SillyMode);
                 GrappleMusicController.Instance.SetEndingMusic(SillyMode);
             }
-        }*/
+        }
     }
 }

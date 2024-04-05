@@ -89,6 +89,7 @@ namespace TrifidJam3
         {
             int i = _audioSources.Length - 1;
             _audioSources[i].clip = silly ? SillyMusic : Music[i];
+            if (_isPlaying && _currentMusic == i) Play(i);
         }
     }
 }
