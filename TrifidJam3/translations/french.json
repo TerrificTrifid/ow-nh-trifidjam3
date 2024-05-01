@@ -1,0 +1,37 @@
+{
+	"$schema": "https://raw.githubusercontent.com/xen-42/outer-wilds-new-horizons/main/NewHorizons/Schemas/translation_schema.json",
+	"UIDictionary": {
+
+		"Echo Hike": "Randonnée d'Écho",
+
+		"Grapple_Name": "Enfileur",
+		"Grapple_Activate": "Activer",
+		"Grapple_ReelIn": "Ramener",
+		"Grapple_ReelOut": "Dérouler",
+		"Grapple_OutOfRange": "ERREUR : HORS DE PORTÉE"
+
+	},
+	"ShipLogDictionary": {
+
+		"EH_Cavern": "Caverne gelée",
+		"EH_Cavern_R1": "Une porte est bloquée par des caisses, mais je distingue quelque chose de l'autre côté.",
+		"EH_Cavern_R1_Name": "Porte bloquée",
+		"EH_Cavern_X1": "La structure d’entrée a apparemment traversé la croûte et pénétré dans l’intérieur creux. Une stalactite à proximité a une balise lumineuse.",
+		"EH_Cavern_X2": "Il y a d'autres balises dans la caverne, mais elles ne sont pas éclairées.",
+		"EH_Cavern_X3": "Je peux charger l'appareil en saisissant une balise allumée et utiliser la charge pour allumer une balise éteinte.",
+
+		"EH_Entrance": "Entrée en contrebas",
+		"EH_Entrance_R1": "Une balise est allumée au pôle nord. Des fils mènent à un gouffre à proximité.",
+		"EH_Entrance_R1_Name": "Balise",
+		"EH_Entrance_X1": "Une structure inconnue au fond d'un gouffre. Les caisses à l’intérieur sont empilées le long des murs en raison de la gravité inclinée.",
+		"EH_Entrance_X2": "J'ai trouvé un appareil capable de saisir ce que je vise avec un faisceau d'énergie ! Je peux l'utiliser pour déplacer des objets, ou moi-même si je le fixe à un mur.",
+
+		"EH_Phosphors": "Banc de phosphore",
+		"EH_Phosphors_R1": "Il y a plusieurs balises dans la caverne, mais une seule est allumée.",
+		"EH_Phosphors_R1_Name": "Balises dispersées",
+		"EH_Phosphors_X1": "J'ai utilisé l'appareil pour allumer les quatre balises, ce qui a rempli la caverne de phosphores !",
+		"EH_Phosphors_X2": "Je ne suis pas sûr de ce que j’ai accompli, mais je sens que la planète l’a apprécié.",
+		"EH_Phosphors_X3": "Merci d'avoir joué! La communauté des phosphores ne verrait probablement pas d’inconvénient si le Threader voyait les étoiles ;3"
+
+	}
+}
