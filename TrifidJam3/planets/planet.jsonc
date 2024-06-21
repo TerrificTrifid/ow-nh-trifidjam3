@@ -59,7 +59,11 @@
             "outerRadius": 650,
             "innerRadius": 450,
             "texture": "planets/ring.png",
-            "fluidType": "sand"
+            "fluidType": "sand",
+            "transparencyType": "alphaClip",
+            "emissionMap": "planets/ring_ambient.png",
+            "translucency": 0.5,
+            "noiseRotationSpeed": 0.5
         }
     ],
     "Props": {
