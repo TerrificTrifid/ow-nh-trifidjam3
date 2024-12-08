@@ -44,7 +44,7 @@ namespace TrifidJam3
             {
                 if (system != "Jam3") return;
 
-                Planet = NewHorizons.GetPlanet(TranslationHandler.GetTranslation("Echo Hike", TranslationHandler.TextType.UI));
+                Planet = NewHorizons.GetPlanet("Echo Hike");
 
                 var crates = Planet.FindChild("Sector/PlanetInterior/EntranceRoot2/Interior/Crates/test");
                 foreach (var crate in crates.GetAllChildren())
