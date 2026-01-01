@@ -324,24 +324,27 @@ public class GrappleController : OWItem
             _reelDirection = 0;
 			_grappleConnected = true;
 
-            Locator.GetShipLogManager().RevealFact(TranslationHandler.GetTranslation("EH_ENTRANCE_X2", TranslationHandler.TextType.UI));
-
-            var newCharged = BeaconController.Instance.TouchBeacon(hitInfo.collider, _charged);
-			if (newCharged != _charged)
+			if (TrifidJam3.Instance.NewHorizons.GetCurrentStarSystem() == "Jam3")
 			{
-				_charged = newCharged;
-				if (_charged)
+				Locator.GetShipLogManager().RevealFact(TranslationHandler.GetTranslation("EH_ENTRANCE_X2", TranslationHandler.TextType.UI));
+
+				var newCharged = BeaconController.Instance.TouchBeacon(hitInfo.collider, _charged);
+				if (newCharged != _charged)
 				{
-                    //Locator.GetShipLogManager().RevealFact("");
-                    _oneShotAudioSource.PlayOneShot(ChargeAudio, 1f);
-					ChargeEffect.SetActive(true);
-                }
-				else
-				{
-                    Locator.GetShipLogManager().RevealFact(TranslationHandler.GetTranslation("EH_CAVERN_X3", TranslationHandler.TextType.UI));
-                    _oneShotAudioSource.PlayOneShot(DischargeAudio, 1f);
-                    ChargeEffect.SetActive(false);
-                }
+					_charged = newCharged;
+					if (_charged)
+					{
+						//Locator.GetShipLogManager().RevealFact("");
+						_oneShotAudioSource.PlayOneShot(ChargeAudio, 1f);
+						ChargeEffect.SetActive(true);
+					}
+					else
+					{
+						Locator.GetShipLogManager().RevealFact(TranslationHandler.GetTranslation("EH_CAVERN_X3", TranslationHandler.TextType.UI));
+						_oneShotAudioSource.PlayOneShot(DischargeAudio, 1f);
+						ChargeEffect.SetActive(false);
+					}
+				}
 			}
         }
     }
