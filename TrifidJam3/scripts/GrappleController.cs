@@ -57,7 +57,7 @@ public class GrappleController : OWItem
 	public override void Awake()
 	{
 		Instance = this;
-		_type = ItemType.VisionTorch;
+		_type = ItemType.DreamLantern;
 		base.Awake();
 	}
 
@@ -148,7 +148,7 @@ public class GrappleController : OWItem
 
 	private void Update()
 	{
-		if (OWInput.IsPressed(ActivateKey, InputMode.Character))
+		if (OWInput.IsPressed(ActivateKey, InputMode.Character) && !Locator.GetToolModeSwapper()._translator.IsEquipped())
 		{
 			/*if (TrifidJam3.Instance.Planet.transform.position.magnitude > 1000f)
             {
