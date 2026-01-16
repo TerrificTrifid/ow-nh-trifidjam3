@@ -4,7 +4,7 @@
   "author": "Trifid & chatti",
   "name": "Echo Hike",
   "uniqueName": "Trifid.TrifidJam3",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "owmlVersion": "2.9.0",
   "dependencies": [ "xen.NewHorizons", "xen.ModJam3" ]
 }
