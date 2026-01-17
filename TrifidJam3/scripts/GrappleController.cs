@@ -148,7 +148,7 @@ public class GrappleController : OWItem
 
 	private void Update()
 	{
-		if (OWInput.IsPressed(ActivateKey, InputMode.Character) && !Locator.GetToolModeSwapper()._translator.IsEquipped())
+		if (OWInput.IsPressed(ActivateKey, InputMode.Character) && Locator.GetToolModeSwapper().IsInToolMode(ToolMode.Item))
 		{
 			/*if (TrifidJam3.Instance.Planet.transform.position.magnitude > 1000f)
             {
