@@ -13,8 +13,10 @@ public class GrappleController : OWItem
 	public static GrappleController Instance { get; private set; }
 
 	public static float MaxLength = 75f;
-	public static float MinLength = 1f;
-	public static float ReelSpeed = 16f;
+	public static float MinLength = 2f;
+	public static float ReelMaxSpeed = 40f;
+	public static float ReelInitialSpeed = 10f;
+	public static float ReelAcceleration = 80f;
 	public static float SpringStrength = 0.2f;
 	public static float SpringDamper = 0.01f;
 	public static float Spring2Strength = 0.02f;
@@ -49,6 +51,7 @@ public class GrappleController : OWItem
 	private bool _grappleActive;
 	private bool _grappleConnected;
 	private int _reelDirection;
+	private float _reelSpeed;
 	private float _targetLength;
 	private SpringJoint _joint;
 	private SpringJoint _joint2;
@@ -146,6 +149,16 @@ public class GrappleController : OWItem
 		return !_grappleActive;
 	}
 
+	/// <summary>
+	/// Tells how much extra "rope" there is.
+	/// </summary>
+	public float GetTension()
+	{
+		Vector3 p1 = Locator.GetToolModeSwapper()._firstPersonManipulator.transform.position;
+        Vector3 p2 = Endpoint.transform.position;
+		return _targetLength - (p1 - p2).magnitude;
+    }
+
 	private void Update()
 	{
 		if (OWInput.IsPressed(ActivateKey, InputMode.Character) && Locator.GetToolModeSwapper().IsInToolMode(ToolMode.Item))
@@ -195,7 +208,11 @@ public class GrappleController : OWItem
                 var player = Locator.GetPlayerBody();
 				var camera = Locator.GetToolModeSwapper()._firstPersonManipulator.transform;
 
-                _targetLength += _reelDirection * ReelSpeed * Time.fixedDeltaTime * (Mathf.Max(_targetLength, 20f) / MaxLength); // todo: increase speed over time?
+				if (_reelDirection != 0)
+					_reelSpeed = Mathf.Clamp(_reelSpeed + ReelAcceleration * Time.fixedDeltaTime, ReelInitialSpeed, ReelMaxSpeed);
+				else
+					_reelSpeed = ReelInitialSpeed;
+                _targetLength += _reelDirection * _reelSpeed * Time.fixedDeltaTime * (Mathf.Max(_targetLength, 20f) / MaxLength);
 				_targetLength = Mathf.Clamp(_targetLength, MinLength - 1f, MaxLength - 1f);
 				_joint.maxDistance = _targetLength;
 				_joint.minDistance = _targetLength;
@@ -265,7 +282,7 @@ public class GrappleController : OWItem
 		var aim = Locator.GetToolModeSwapper()._firstPersonManipulator.transform;
         if (Physics.Raycast(aim.position, aim.forward, out var hitInfo, MaxLength, OWLayerMask.groundMask))
         {
-			if (hitInfo.distance < MinLength || hitInfo.rigidbody.GetAttachedOWRigidbody() == null) return;
+			if (hitInfo.distance < 1f || hitInfo.rigidbody.GetAttachedOWRigidbody() == null) return;
 			//NHLogger.Log(hitInfo.rigidbody.gameObject.name);
 			//NHLogger.Log(hitInfo.distance);
 			//NHLogger.Log(hitInfo.point);
@@ -322,6 +339,7 @@ public class GrappleController : OWItem
             _oneShotAudioSource.PlayOneShot(ActivateAudio, 1f);
 			_ambienceAudioSource.FadeIn(0.05f);
             _reelDirection = 0;
+			_reelSpeed = ReelInitialSpeed;
 			_grappleConnected = true;
 
 			if (TrifidJam3.Instance.NewHorizons.GetCurrentStarSystem() == "Jam3")

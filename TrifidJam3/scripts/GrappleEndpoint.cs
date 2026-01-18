@@ -33,9 +33,11 @@ namespace TrifidJam3
             var distance = separation.magnitude;
             //Line.positionCount = (int)Mathf.Lerp(MinSegments, MaxSegments, distance / GrappleController.MaxLength);
 
+            var tension = Mathf.Clamp01(Grapple.GetTension() * .5f + .5f);
+
             var p0 = transform.position;
-            var p1 = transform.TransformPoint(Vector3.forward * distance * 0.5f);
-            var p2 = Grapple.transform.TransformPoint(Vector3.forward * distance * 0.5f);
+            var p1 = transform.TransformPoint(Vector3.forward * distance * tension);
+            var p2 = Grapple.transform.TransformPoint(Vector3.forward * distance * tension);
             var p3 = Grapple.AttachPoint.position;
             for (int i = 0; i < Line.positionCount; i++)
             {
