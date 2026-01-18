@@ -221,7 +221,8 @@ public class GrappleController : OWItem
 				var endpointDir = relativeEndpoint.normalized;
 				var cameraDir = camera.forward;
 
-				_joint2.connectedAnchor = player.transform.InverseTransformPoint(cameraDir * (relativeEndpoint.magnitude + 1f));
+				_joint2.connectedAnchor = player.transform.InverseTransformPoint(camera.position + (cameraDir * (relativeEndpoint.magnitude + 1f)));
+                //Popcron.Gizmos.Sphere(player.transform.TransformPoint(_joint2.connectedAnchor), 0.25f, Color.red);
 
 				//var torque = -(Vector3.Project(relativeEndpoint, cameraDir) * 2f - relativeEndpoint);
 				/*var torqueDir = Vector3.Cross(endpointDir, Vector3.Cross(endpointDir, cameraDir));
@@ -309,9 +310,9 @@ public class GrappleController : OWItem
 
             player.MoveToPosition(playerPosition);
 
-			_joint.anchor = hitInfo.rigidbody.transform.InverseTransformPoint(hitInfo.point);
+			_joint.anchor = hitInfo.rigidbody.isKinematic ? hitInfo.rigidbody.transform.InverseTransformPoint(hitInfo.point) : Vector3.zero;
 			_joint.autoConfigureConnectedAnchor = false;
-			_joint.connectedAnchor = Vector3.zero;
+			_joint.connectedAnchor = player.transform.InverseTransformPoint(aim.position);
 			_joint.enableCollision = true;
 			_targetLength = hitInfo.distance; // - 1f
             _joint.maxDistance = _targetLength;
@@ -319,9 +320,9 @@ public class GrappleController : OWItem
 			_joint.spring = SpringStrength;
 			_joint.damper = SpringDamper;
 
-			_joint2.anchor = Vector3.zero; //_joint.anchor;
+			_joint2.anchor = _joint.anchor;
             _joint2.autoConfigureConnectedAnchor = false;
-            _joint2.connectedAnchor = player.transform.InverseTransformPoint(aim.forward * (hitInfo.distance + 1f));
+            _joint2.connectedAnchor = player.transform.InverseTransformPoint(aim.position + (aim.forward * (hitInfo.distance + 1f)));
             _joint2.enableCollision = true;
             _joint2.maxDistance = 0f;
             _joint2.minDistance = 0f;
