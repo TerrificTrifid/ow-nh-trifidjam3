@@ -1,4 +1,3 @@
-using Mono.Cecil;
 using NewHorizons;
 using NewHorizons.Components;
 using NewHorizons.Handlers;
@@ -20,7 +19,8 @@ public class GrappleController : OWItem
 	public static float SpringStrength = 0.2f;
 	public static float SpringDamper = 0.01f;
 	public static float Spring2Strength = 0.02f;
-	public static float Spring2Damper = 0.04f;
+	public static float Spring2DamperMin = 0.01f;
+	public static float Spring2DamperExp = 100f;
 
 	public IInputCommands ActivateKey = InputLibrary.toolActionPrimary;
     public IInputCommands ReelInKey = InputLibrary.toolOptionUp;
@@ -56,6 +56,7 @@ public class GrappleController : OWItem
 	private SpringJoint _joint;
 	private SpringJoint _joint2;
 	private bool _charged;
+	private bool _kinematic;
 
 	public override void Awake()
 	{
@@ -205,7 +206,7 @@ public class GrappleController : OWItem
 			}
 			else
 			{
-                var player = Locator.GetPlayerBody();
+                var player = Locator.GetPlayerTransform();
 				var camera = Locator.GetToolModeSwapper()._firstPersonManipulator.transform;
 
 				if (_reelDirection != 0)
@@ -217,40 +218,16 @@ public class GrappleController : OWItem
 				_joint.maxDistance = _targetLength;
 				_joint.minDistance = _targetLength;
 
-				var relativeEndpoint = camera.InverseTransformPoint(Endpoint.transform.position);
-				var endpointDir = relativeEndpoint.normalized;
-				var cameraDir = camera.forward;
-
-				_joint2.connectedAnchor = player.transform.InverseTransformPoint(camera.position + (cameraDir * (relativeEndpoint.magnitude + 1f)));
-                //Popcron.Gizmos.Sphere(player.transform.TransformPoint(_joint2.connectedAnchor), 0.25f, Color.red);
-
-				//var torque = -(Vector3.Project(relativeEndpoint, cameraDir) * 2f - relativeEndpoint);
-				/*var torqueDir = Vector3.Cross(endpointDir, Vector3.Cross(endpointDir, cameraDir));
-				var torqueStrength = 1f - Vector3.Dot(endpointDir, cameraDir);
-				if (torqueStrength > TorqueDeadzone)
+				if (!_kinematic)
 				{
-					var torqueForce = torqueDir * (torqueStrength - TorqueDeadzone) * TorqueStrength;
-                    player.AddForce(torqueForce);
-					var body = Endpoint.GetAttachedOWRigidbody();
-					//var addPhysics = body.gameObject.GetComponent<AddPhysics>();
-                    //if (addPhysics != null)
-					//{
-					//	body.UnsuspendImmediate(true);
-					//	body.SetIsTargetable(true);
-					//	Destroy(addPhysics);
-					//}
-					if (!body.IsKinematic())
-					{
-						body.AddForce(-torqueForce, Endpoint.transform.position);
-					}
-                }*/
+                    var relativeEndpoint = camera.InverseTransformPoint(Endpoint.transform.position);
+                    var endpointDir = relativeEndpoint.normalized;
+                    var cameraDir = camera.forward;
 
-				//var body = Endpoint.GetAttachedOWRigidbody().transform;
-                //var anchor = body.InverseTransformPoint(Endpoint.transform.position);
-				//var anchorShift = Vector3.Reflect(cameraDir, relativeEndpoint.normalized) * relativeEndpoint.magnitude;
-				//_joint.anchor = body.InverseTransformPoint(player.transform.TransformPoint(anchorShift));
-
-
+                    _joint2.connectedAnchor = player.InverseTransformPoint(camera.position + (cameraDir * (relativeEndpoint.magnitude + 1f)));
+                    //Popcron.Gizmos.Sphere(player.TransformPoint(_joint2.connectedAnchor), 0.25f, Color.red);
+                    _joint2.damper = Mathf.Max(Spring2DamperMin, Mathf.Pow(Vector3.Dot(endpointDir, cameraDir), Spring2DamperExp));
+                }
             }
 		}
 		else
@@ -310,7 +287,9 @@ public class GrappleController : OWItem
 
             player.MoveToPosition(playerPosition);
 
-			_joint.anchor = hitInfo.rigidbody.isKinematic ? hitInfo.rigidbody.transform.InverseTransformPoint(hitInfo.point) : Vector3.zero;
+			_kinematic = hitInfo.rigidbody.isKinematic || hitInfo.rigidbody == Locator.GetShipBody().GetRigidbody();
+
+			_joint.anchor = _kinematic ? hitInfo.rigidbody.transform.InverseTransformPoint(hitInfo.point) : Vector3.zero;
 			_joint.autoConfigureConnectedAnchor = false;
 			_joint.connectedAnchor = player.transform.InverseTransformPoint(aim.position);
 			_joint.enableCollision = true;
@@ -326,16 +305,8 @@ public class GrappleController : OWItem
             _joint2.enableCollision = true;
             _joint2.maxDistance = 0f;
             _joint2.minDistance = 0f;
-			if (!hitInfo.rigidbody.isKinematic)
-			{
-				_joint2.spring = Spring2Strength;
-				_joint2.damper = Spring2Damper;
-			}
-			else
-			{
-                _joint2.spring = 0;
-                _joint2.damper = 0;
-            }
+            _joint2.spring = _kinematic ? 0f : Spring2Strength;
+			_joint2.damper = 0f;
 
             _oneShotAudioSource.PlayOneShot(ActivateAudio, 1f);
 			_ambienceAudioSource.FadeIn(0.05f);
