@@ -36,6 +36,7 @@ namespace TrifidJam3
                 _audioSources[i].loop = true;
                 _audioSources[i].SetMaxVolume(0.5f);
                 _audioSources[i].SetTrack(OWAudioMixer.TrackName.Music);
+                _audioSources[i].gameObject.name = "EchoHikeMusic" + i;
             }
 
             SetEndingMusic(TrifidJam3.Instance.SillyMode);

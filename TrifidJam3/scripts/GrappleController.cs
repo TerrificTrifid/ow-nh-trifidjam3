@@ -94,6 +94,9 @@ public class GrappleController : OWItem
         _reelAudioSource.clip = ReelAudio;
         _reelAudioSource.loop = true;
         _reelAudioSource.SetMaxVolume(0.5f);
+		_ambienceAudioSource.gameObject.name = "GrappleAmbienceAudio";
+		_reelAudioSource.gameObject.name = "GrappleReelAudio";
+		_oneShotAudioSource.gameObject.name = "GrappleOneShotAudio";
 
         enabled = false;
 	}
@@ -101,10 +104,6 @@ public class GrappleController : OWItem
 	public override void OnDestroy()
 	{
 		base.OnDestroy();
-		Destroy(_ambienceAudioSource.gameObject);
-        Destroy(_reelAudioSource.gameObject);
-        Destroy(_oneShotAudioSource.gameObject);
-		
 	}
 
 	public override string GetDisplayName()
