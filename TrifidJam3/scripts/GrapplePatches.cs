@@ -43,4 +43,15 @@ public class GrapplePatches : MonoBehaviour
 
         return true;
     }
+
+    [HarmonyPrefix, HarmonyPatch(typeof(DeathManager), nameof(DeathManager.CheckShouldWakeInDreamWorld))]
+    private static bool DeathManager_CheckShouldWakeInDreamWorld()
+    {
+        if (Locator.GetToolModeSwapper().GetItemCarryTool().GetHeldItem() is GrappleController)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
