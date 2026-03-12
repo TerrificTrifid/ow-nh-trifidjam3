@@ -1,0 +1,32 @@
+{
+//该翻译补丁经检查没有任何问题。
+  "$schema": "https://raw.githubusercontent.com/xen-42/outer-wilds-new-horizons/main/NewHorizons/Schemas/translation_schema.json",
+  "UIDictionary": {
+    "Echo Hike": "旅行之回响",
+    "Grapple_Name": "钩索",
+    "Grapple_Activate": "激活",
+    "Grapple_ReelIn": "收回",
+    "Grapple_ReelOut": "放出",
+    "Grapple_OutOfRange": "错误：超出射程"
+  },
+  "ShipLogDictionary": {
+    "EH_Cavern": "冰封洞窟",
+    "EH_Cavern_R1": "一道门被箱子堵死了，但我能看到门的另一边有什么东西。",
+    "EH_Cavern_R1_Name": "被堵住的门",
+    "EH_Cavern_X1": "入口的建筑结构似乎穿透了地壳，伸入了空旷的星球内部。附近的一根钟乳石上有个发光的信标。",
+    "EH_Cavern_X2": "洞窟里还有其他信标，但它们都没有亮。",
+    "EH_Cavern_X3": "我可以用钩索抓住亮着的信标来为钩索充能，再用充能的钩索点亮熄灭的信标。",
+
+    "EH_Entrance": "下方入口",
+    "EH_Entrance_R1": "北极点有一盏信标亮着。几条线缆通向附近的一处深渊。",
+    "EH_Entrance_R1_Name": "信标",
+    "EH_Entrance_X1": "深渊底部有个陌生的建筑结构。内部的箱子因倾斜地面和重力沿着墙壁堆叠。",
+    "EH_Entrance_X2": "我找到了一个装置——它能发射能量束抓住我瞄准的东西！我可以用它移动物体，而要是把能量束固定在墙上，还能用它来移动我自己。",
+
+    "EH_Phosphors": "荧光生物群",
+    "EH_Phosphors_R1": "洞窟里有好几盏信标，但只有一盏是亮着的。",
+    "EH_Phosphors_X1": "我用那个装置点亮了四盏信标，然后整个洞窟都被荧光生物填满了！",
+    "EH_Phosphors_X2": "我不确定自己完成了什么，但我感觉这颗星球领情了。",
+    "EH_Phosphors_X3": "感谢游玩！荧光生物们应该并不介意穿线者能看见星辰 ;3"
+  }
+}
