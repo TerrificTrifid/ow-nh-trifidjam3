@@ -10,6 +10,7 @@ Find solace in a forgotten cavern, with a device left behind.
 
 An entry for the [third mod jam](https://outerwildsmods.com/mods/modjam3/), created by Trifid and composed by chatti. (and epic playtested by Wonky Panda the epic playtester)
 
-French translation by Omega Fallon.
+- French translation by Omega Fallon.
+- Chinese translation by SanBaiMing.
 
 [Beacons (Echo Hike OST)](https://youtu.be/m56DKrFL-9s?si=9SPg3qrE7sMyX6CY)
